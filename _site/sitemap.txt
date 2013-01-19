@@ -1,10 +1,10 @@
 
-http://username.github.com/archive.html
-http://username.github.com/atom.xml
-http://username.github.com/categories.html
-http://username.github.com/index.html
-http://username.github.com/pages.html
-http://username.github.com/sitemap.txt
-http://username.github.com/tags.html
+http://blog.hapnic.com/archive.html
+http://blog.hapnic.com/atom.xml
+http://blog.hapnic.com/categories.html
+http://blog.hapnic.com/index.html
+http://blog.hapnic.com/pages.html
+http://blog.hapnic.com/sitemap.txt
+http://blog.hapnic.com/tags.html
 
-http://username.github.com/lessons/2011/12/29/jekyll-introduction
+http://blog.hapnic.com/2013/01/19/jekyll-and-jekyll-bootstrap
