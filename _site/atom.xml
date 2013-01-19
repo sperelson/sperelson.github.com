@@ -4,7 +4,7 @@
  <title>I've Just Used</title>
  <link href="http://blog.hapnic.com/atom.xml" rel="self"/>
  <link href="http://blog.hapnic.com"/>
- <updated>2013-01-19T03:52:28+02:00</updated>
+ <updated>2013-01-19T03:59:56+02:00</updated>
  <id>http://blog.hapnic.com</id>
  <author>
    <name>Stephen Perelson</name>
@@ -19,9 +19,15 @@
    <id>http://blog.hapnic.com/2013/01/19/jekyll-and-jekyll-bootstrap</id>
    <content type="html">&lt;p&gt;I realised that I encounter lots of semi-interesting and interesting technologies quite often. I make the mistake of not writing about my experiences.&lt;/p&gt;
 
+&lt;p&gt;I have also wanted to start using a static blog engine. Since Github&amp;#8217;s Pages uses Jekyll, it seemed like a good jumping off point. I did a quick search for a helper framework and found Jekyll-Bootstrap that had some pre-built themes.&lt;/p&gt;
+
+&lt;p&gt;Setup was not difficult. Just followed the instructions and replaced my existing Github Page with the new files. Change the configs and remove/edit everything else and it was ready to be pushed back to Github.&lt;/p&gt;
+
+&lt;p&gt;I even went as far as setting up the CNAME record to give the blog a custom domain name.&lt;/p&gt;
+
 &lt;h2 id='share_it_all'&gt;Share It All&lt;/h2&gt;
 
-&lt;p&gt;I&amp;#8217;m going to write all about the technologies I&amp;#8217;ve Just Used.&lt;/p&gt;</content>
+&lt;p&gt;Now I&amp;#8217;m going to write all about the technologies I&amp;#8217;ve just used.&lt;/p&gt;</content>
  </entry>
  
  
