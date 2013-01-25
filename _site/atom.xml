@@ -4,13 +4,57 @@
  <title>I've Just Used</title>
  <link href="http://blog.hapnic.com/atom.xml" rel="self"/>
  <link href="http://blog.hapnic.com"/>
- <updated>2013-01-19T04:01:29+02:00</updated>
+ <updated>2013-01-25T13:44:20+02:00</updated>
  <id>http://blog.hapnic.com</id>
  <author>
    <name>Stephen Perelson</name>
    <email>stephen@hapnic.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Git and Github</title>
+   <link href="http://blog.hapnic.com/2013/01/21/Git-and-Github"/>
+   <updated>2013-01-21T00:00:00+02:00</updated>
+   <id>http://blog.hapnic.com/2013/01/21/Git-and-Github</id>
+   <content type="html">&lt;p&gt;I&amp;#8217;ve always liked the idea behind revision control systems. I don&amp;#8217;t think it matters which &lt;a href='http://en.wikipedia.org/wiki/Revision_control'&gt;revision control system&lt;/a&gt; you use as long as it supports you and your team&amp;#8217;s development workflow.&lt;/p&gt;
+
+&lt;p&gt;I am quite practiced with using Git and Github for my personal and client work. The early days of Git were, however, not very user friendly. You had to be familiar with the CLI and Windows was not easily supported.&lt;/p&gt;
+
+&lt;p&gt;That has changed a lot recently with Github&amp;#8217;s introduction of GUI clients for Mac OS X and for Windows. And what really impresses with Github&amp;#8217;s clients are their simplified approaches to the most common Git operations. You still have the full power that Git&amp;#8217;s CLI offers, but you most likely will never have to use that power.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href='https://github.com'&gt;Github&lt;/a&gt; offers a central store for your code repositories and almost all the code for the projects I work on are hosted there. Some people are even using Github for unusual projects such as the person who is tracking issues on his &lt;a href='https://github.com/frabcus/house'&gt;house&lt;/a&gt;. I&amp;#8217;m using Github to host the blog you are reading!&lt;/p&gt;
+
+&lt;h3 id='what_does_revision_control_really_offer_you'&gt;What does revision control really offer you?&lt;/h3&gt;
+
+&lt;p&gt;Revision control give you the undeniable proof of how code has evolved and who was to blame for that. Git also give you the power to test out concepts and new features without affecting the primary source code through the use of branches.&lt;/p&gt;
+
+&lt;h3 id='ps'&gt;P.S.&lt;/h3&gt;
+
+&lt;p&gt;There are other really good Git clients out there and you are definitely not restricted to using Github to host your central repository.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Vagrant</title>
+   <link href="http://blog.hapnic.com/2013/01/20/Vagrant"/>
+   <updated>2013-01-20T00:00:00+02:00</updated>
+   <id>http://blog.hapnic.com/2013/01/20/Vagrant</id>
+   <content type="html">&lt;p&gt;I am amazed at how quickly I became comfortable using &lt;a href='http://vagrantup.com/'&gt;Vagrant&lt;/a&gt;. Especially considering how long I put off using it.&lt;/p&gt;
+
+&lt;p&gt;I liked the idea that my Macbook could run all the daemons and services I would need for any project. Nothing wrong with this approach if you only ever work on a single project. But begin working on different projects and your computer quickly becomes full of a hodgepodge of running processes.&lt;/p&gt;
+
+&lt;p&gt;I would not start a new project now without setting up a Vagrantfile. If you don&amp;#8217;t know what Vagrant is let me explain it very quickly by quoting the website:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Create and configure lightweight, reproducible, and portable development environments.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;It does this by leveraging Virtualbox to create and run headless Virtual Machines. These VM&amp;#8217;s use the code that resides in your host OS via a shared folder. So, edit in your primary OS using your favourite editor and see your results immediately via the VM.&lt;/p&gt;
+
+&lt;p&gt;I&amp;#8217;ll be honest, setting up your initial Vagrant VM for a project may take a bit of time. Software does not just install itself so you have to script the installation of any software your project will require. However, once done, you will likely reuse your scripts for future projects.&lt;/p&gt;
+
+&lt;p&gt;I really like that Vagrant stops me from cluttering up my computer with loads of software. I also like that the development environment is scriptable and easily shared. I am also amazed at how often I am using Vagrant now.&lt;/p&gt;</content>
+ </entry>
  
  <entry>
    <title>Jekyll and Jekyll-Bootstrap</title>
