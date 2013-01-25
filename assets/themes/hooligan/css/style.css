@@ -15,7 +15,7 @@ body {
   text-shadow: 1px 1px 1px #000;
   height: 100%;
   font-family: 'Oxygen', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 /* line 26, ../_sass/_base.scss */
@@ -102,10 +102,14 @@ hr {
 /* line 85, ../_sass/_base.scss */
 .navbar div.navbar-inner a.brand {
   padding: 10px 20px;
+  font-size: 28px;
 }
 /* line 90, ../_sass/_base.scss */
 .navbar div.navbar-inner ul.nav:first-child li a {
   padding: 12px 10px 8px;
+}
+ul.social {
+	top: -4px;
 }
 
 /* line 99, ../_sass/_base.scss */

@@ -19,7 +19,7 @@ body {
   text-shadow:1px 1px 1px #000;
   height:100%; 
   font-family: 'Oxygen', sans-serif; 
-  font-size: 14px;
+  font-size: 16px;
 }
    
 h1,h2,h3,h4,h5,h6 {
@@ -83,6 +83,7 @@ hr {
   	@include border-radius(0);
   	a.brand {
   		padding:10px 20px;
+  		font-size: 28px;
   	}
   	ul.nav:first-child {
   		li {
@@ -91,6 +92,9 @@ hr {
   			}
   		}
   	}
+  	ul.social {
+		top: -4px;
+	}
   }
 }
 
