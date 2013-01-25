@@ -4,7 +4,7 @@
  <title>I've Just Used</title>
  <link href="http://blog.hapnic.com/atom.xml" rel="self"/>
  <link href="http://blog.hapnic.com"/>
- <updated>2013-01-25T23:47:26+02:00</updated>
+ <updated>2013-01-26T00:31:11+02:00</updated>
  <id>http://blog.hapnic.com</id>
  <author>
    <name>Stephen Perelson</name>
@@ -20,7 +20,7 @@
    <content type="html">&lt;p&gt;I&amp;#8217;ve always liked the idea behind revision control systems. I don&amp;#8217;t think it matters which &lt;a href='http://en.wikipedia.org/wiki/Revision_control'&gt;revision control system&lt;/a&gt; you use as long as it supports you and your team&amp;#8217;s development workflow.&lt;/p&gt;
 
 &lt;p&gt;I am quite practiced with using Git and Github for my personal and client work. The early days of Git were, however, not very user friendly. You had to be familiar with the CLI and Windows was not easily supported.&lt;/p&gt;
-
+&lt;!--more--&gt;
 &lt;p&gt;That has changed a lot recently with Github&amp;#8217;s introduction of GUI clients for Mac OS X and for Windows. And what really impresses with Github&amp;#8217;s clients are their simplified approaches to the most common Git operations. You still have the full power that Git&amp;#8217;s CLI offers, but you most likely will never have to use that power.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href='https://github.com'&gt;Github&lt;/a&gt; offers a central store for your code repositories and almost all the code for the projects I work on are hosted there. Some people are even using Github for unusual projects such as the person who is tracking issues on his &lt;a href='https://github.com/frabcus/house'&gt;house&lt;/a&gt;. I&amp;#8217;m using Github to host the blog you are reading!&lt;/p&gt;
@@ -42,7 +42,7 @@
    <content type="html">&lt;p&gt;I am amazed at how quickly I became comfortable using &lt;a href='http://vagrantup.com/'&gt;Vagrant&lt;/a&gt;. Especially considering how long I put off using it.&lt;/p&gt;
 
 &lt;p&gt;I liked the idea that my Macbook could run all the daemons and services I would need for any project. Nothing wrong with this approach if you only ever work on a single project. But begin working on different projects and your computer quickly becomes full of a hodgepodge of running processes.&lt;/p&gt;
-
+&lt;!--more--&gt;
 &lt;p&gt;I would not start a new project now without setting up a Vagrantfile. If you don&amp;#8217;t know what Vagrant is let me explain it very quickly by quoting the website:&lt;/p&gt;
 
 &lt;blockquote&gt;

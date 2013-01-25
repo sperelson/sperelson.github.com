@@ -11,6 +11,8 @@ I've always liked the idea behind revision control systems. I don't think it mat
 
 I am quite practiced with using Git and Github for my personal and client work. The early days of Git were, however, not very user friendly. You had to be familiar with the CLI and Windows was not easily supported. 
 
+<!--more-->
+
 That has changed a lot recently with Github's introduction of GUI clients for Mac OS X and for Windows. And what really impresses with Github's clients are their simplified approaches to the most common Git operations. You still have the full power that Git's CLI offers, but you most likely will never have to use that power.
 
 [Github](https://github.com) offers a central store for your code repositories and almost all the code for the projects I work on are hosted there. Some people are even using Github for unusual projects such as the person who is tracking issues on his [house](https://github.com/frabcus/house). I'm using Github to host the blog you are reading!
