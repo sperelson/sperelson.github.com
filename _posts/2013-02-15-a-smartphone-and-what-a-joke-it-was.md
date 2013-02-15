@@ -17,7 +17,7 @@ Not all of those are smartphones though -- not when I apply my definition of the
 <!--more-->
 
 
-Would you be surprised when I say that Apple's iPhone is most definitely not a smartphone. I would classify the iPhone as a mobile application platform with a phone attached. Due to its strict sandboxing, very few of the apps can extend the phone functionality in any meaningful way.
+Would you be surprised if I said that Apple's iPhone is not a smartphone? I classify the iPhone as a mobile application platform with a phone attached. Due to its strict sandboxing, very few of apps can extend the phone functionality in any meaningful way. You have to jailbreak to get true power.
 
 Want a custom phone profile during meetings so you phone goes to silent automatically based on your calendar? If you know better, let me know, but I don't think it is possible to add an app to an iPhone that can do that.
 
