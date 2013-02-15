@@ -23,5 +23,5 @@ Want a custom phone profile during meetings so you phone goes to silent automati
 
 I'm not saying the iPhone isn't an incredible application platform for mobile apps. It is fantastic for that. It just doesn't do anything to make itself a smartphone. Android helps make the phone smarter. Even Symbian gave the app developers the power to improve the phone's capabilities.
 
-So, if you want a smart**phone** choose a phone that gives you the power to extend its phone. In the meantime, lets choose a more appropriate name for mobile application devices. How about Marvin?
+So, if you want a smart**phone** then choose a phone that gives you the power to extend its phone. In the meantime, lets choose a more appropriate name for mobile application devices. How about Marvin?
 
