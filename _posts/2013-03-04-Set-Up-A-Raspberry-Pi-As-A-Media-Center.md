@@ -7,7 +7,9 @@ tags: [XBMC, Raspberry Pi, CEC]
 ---
 {% include JB/setup %}
 
-I bought a Raspberry Pi and got the Model B with 512 MB ram and, having tried Xbian and then RaspBMC, I am now using Openelec and controlling XBMC via the TV's remote control. This remote control works because of the TV's implementation of the Consumer Electronics Control interface (CEC). CEC makes this whole setup extra special (meaning, it became extra usable by the whole family.
+I bought a Raspberry Pi and got the Model B with 512 MB ram and, having tried Xbian and then RaspBMC, I am now using Openelec. All three of these Linux distributions are specially made XBMC controlled media centers. 
+
+My RPi with XBMC is controllable via my TV's remote control. This remote control works because of the TV's implementation of the Consumer Electronics Control interface (CEC). CEC makes this whole setup extra special as we have a single remote for the whole setup and is easier to use by the whole family.
 
 <!--more-->
 
