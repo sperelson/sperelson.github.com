@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "A Smartphone And What A Joke It Was"
-description: "Smartphone are not very smart phones"
+title: "Used A Smartphone And What A Joke It Was"
+description: "Smartphones are not very smart phones"
 category: 
 tags: [phones, smartphones, mobile]
 ---

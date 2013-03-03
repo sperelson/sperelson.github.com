@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Git and Github"
+title: "Found Happiness With Git and Github"
 description: "Source control with Git"
 category: 
 tags: [Git, Github, development]

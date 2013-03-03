@@ -1,6 +1,6 @@
 ---
 layout: page
-title: I've Just Used
+title: I've Just
 ---
 {% include JB/setup %}
 

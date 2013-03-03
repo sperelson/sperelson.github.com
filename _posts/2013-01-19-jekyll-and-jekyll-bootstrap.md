@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Jekyll and Jekyll-Bootstrap"
+title: "Started Using Jekyll and Jekyll-Bootstrap"
 description: "Time to blog using Github Pages"
 category: 
 tags: [Jekyll, Jekyll-Bootstrap, Github]

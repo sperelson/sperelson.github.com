@@ -9,8 +9,8 @@ pygments: true
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-title : I've Just Used
-tagline: I use a lot of different technologies. I should write down what I discover.
+title : I've Just
+tagline: I've just done it now
 author :
   name : Stephen Perelson
   email : stephen@hapnic.com
