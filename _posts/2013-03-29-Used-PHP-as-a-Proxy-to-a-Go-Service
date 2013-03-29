@@ -16,7 +16,7 @@ It isn't like they do it badly or wrong. It's just that if the process dies, it 
 ## Current State
 Webfaction is a seriously awesome web host. You get a virtual piece of a hardcore server that you can do almost anything with. If you haven't checked them out do yourself a favour and me a huge one and please use this affliate link: [Webfaction](http://www.webfaction.com?affiliate=sperelson).
 
-Besides a huge list of preconfigured services that includes options for Django, Wordpress, Rails, Drupal, and more, you have the option of a custom application. Through a bit of effort I discovered that you can easily compile a Go program in a correctly configured CentOs 6.3 virtual machine and run the resulting executable in your Webfaction server account.
+Webfaction offer a huge list of preconfigured services that include options for Django, Wordpress, Rails, Drupal, and more. You also have the option of a custom application. Through a bit of effort I discovered that you can easily compile a Go program in a correctly configured CentOs 6.3 virtual machine and run the resulting executable in your Webfaction server account.
 
 Unfortunately, the issue I have with this is that the default approach to setting up a custom application on Webfaction is to expose the service on an assigned port, which is then exposed through some magic via a virtual host via an Nginx front-end.
 
