@@ -9,7 +9,7 @@ tags: [DB, Schema, Schemaless, MongoDB]
 
 I love databases. Most developers couldn't give two hoots though. You love databases too? Good. Thanks. 
 
-Do you use schemaless databases like MongoDB_*_ or one of the many others? I'll bet that you enjoy the freedom those NoSQL databases offer?
+Do you use schemaless databases like MongoDB_\*_ or one of the many others? I'll bet that you enjoy the freedom those NoSQL databases offer?
 
 But, do you still plan a design for the data's structure even though you are using a schemaless database? No? Well, that's a little daft.
 
