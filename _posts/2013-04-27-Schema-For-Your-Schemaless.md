@@ -9,7 +9,7 @@ tags: [DB, Schema, Schemaless, MongoDB]
 
 I love databases. Most developers couldn't give two hoots though. You love databases too? Good. Thanks. 
 
-Do you use schemaless databases like MongoDB or one of the many others? I'll bet that you enjoy the freedom those NoSQL databases offer?
+Do you use schemaless databases like MongoDB_*_ or one of the many others? I'll bet that you enjoy the freedom those NoSQL databases offer?
 
 But, do you still plan a design for the data's structure even though you are using a schemaless database? No? Well, that's a little daft.
 
@@ -49,3 +49,5 @@ Not planning for the eventual growth of your data is going to be devastating for
 It helps knowing the features and limitations of the data store you are using. For example, trying to use MongoDB to perform real-time aggregate queries would be like trying to use MySQL to hold blobs of Json data for your web app.
 
 Finally, always plan ahead, plan in pencil, and have an eraser handy.
+
+_\* [MongoDB](http://www.mongodb.org/) is more accurately described as having a dynamic schema and is loads of fun to play with._
