@@ -50,4 +50,5 @@ It helps knowing the features and limitations of the data store you are using. F
 
 Finally, always plan ahead, plan in pencil, and have an eraser handy.
 
-<a id="footnote"></a>_\* [MongoDB](http://www.mongodb.org/) is more accurately described as having a dynamic schema and is loads of fun to play with._
+<a id="footnote"></a>
+_\* [MongoDB](http://www.mongodb.org/) is more accurately described as having a dynamic schema and is loads of fun to play with._
