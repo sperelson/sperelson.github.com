@@ -12,5 +12,5 @@ Client side rendering of glyphs stored in font files is becoming quite prevalent
 In those times where the client web browser is lacking, typically for underpowered (and very cheap) feature phones, allowing the graceful fallback to a server hosted version of the glyph is preferable to displaying nothing.
 
 ### Technical Overview
-I coded a quick and simple PHP class that renders a unicode character from the Font Awesome TTF file. You can visit the source at <img src="http://hapnic.com/awesome2png/?u=F09B&h=18&c=ffffff" alt="" style="border: none; box-shadow: none;" />/sperelson/awesome2png](https://github.com/sperelson/awesome2png). And that Github icon was rendered dynamically on the server side.
+I coded a quick and simple PHP class that renders a unicode character from the Font Awesome TTF file. You can visit the source at [![](http://hapnic.com/awesome2png/?u=F09B&h=18&c=ffffff)/sperelson/awesome2png](https://github.com/sperelson/awesome2png). And that Github icon was rendered dynamically on the server side.
 
