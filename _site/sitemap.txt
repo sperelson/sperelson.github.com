@@ -7,6 +7,11 @@ http://blog.hapnic.com/pages.html
 http://blog.hapnic.com/sitemap.txt
 http://blog.hapnic.com/tags.html
 
+http://blog.hapnic.com/2013/08/10/Server-Side-Font-Glyph-Rendering
+http://blog.hapnic.com/2013/04/27/Schema-For-Your-Schemaless
+http://blog.hapnic.com/2013/03/29/Used-PHP-as-a-Proxy-to-a-Go-Service
+http://blog.hapnic.com/2013/03/04/Set-Up-A-Raspberry-Pi-As-A-Media-Center
+http://blog.hapnic.com/2013/02/15/a-smartphone-and-what-a-joke-it-was
 http://blog.hapnic.com/2013/01/21/Git-and-Github
 http://blog.hapnic.com/2013/01/20/Vagrant
 http://blog.hapnic.com/2013/01/19/jekyll-and-jekyll-bootstrap

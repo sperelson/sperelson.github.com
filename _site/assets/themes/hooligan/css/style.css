@@ -130,10 +130,6 @@ ul.social {
   /* when there's no page-header */
   /* Wide column content */
 }
-/* line 111, ../_sass/_base.scss */
-.content img {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
-}
 /* line 115, ../_sass/_base.scss */
 .content.no-header {
   padding-top: 40px;

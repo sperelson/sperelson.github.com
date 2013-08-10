@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
  
- <title>I've Just Used</title>
+ <title>I've Just</title>
  <link href="http://blog.hapnic.com/atom.xml" rel="self"/>
  <link href="http://blog.hapnic.com"/>
- <updated>2013-01-26T00:53:19+02:00</updated>
+ <updated>2013-08-10T15:02:57+02:00</updated>
  <id>http://blog.hapnic.com</id>
  <author>
    <name>Stephen Perelson</name>
@@ -13,7 +13,153 @@
 
  
  <entry>
-   <title>Git and Github</title>
+   <title>Server Side Font Glyph Rendering</title>
+   <link href="http://blog.hapnic.com/2013/08/10/Server-Side-Font-Glyph-Rendering"/>
+   <updated>2013-08-10T00:00:00+02:00</updated>
+   <id>http://blog.hapnic.com/2013/08/10/Server-Side-Font-Glyph-Rendering</id>
+   <content type="html">&lt;p&gt;Client side rendering of glyphs stored in font files is becoming quite prevalent. However, just because rendering the glyphs on the client side is the generally accepted method, doesn&amp;#8217;t mean all web browsers are capable.&lt;/p&gt;
+
+&lt;p&gt;In those times where the client web browser is lacking, typically for underpowered (and very cheap) feature phones, allowing the graceful fallback to a server hosted version of the glyph is preferable to displaying nothing.&lt;/p&gt;
+
+&lt;h3 id='technical_overview'&gt;Technical Overview&lt;/h3&gt;
+
+&lt;p&gt;I coded a quick and simple PHP class that renders a unicode character from the Font Awesome TTF file. You can visit the source at &lt;a href='https://github.com/sperelson/awesome2png'&gt;&lt;img alt='' src='http://hapnic.com/awesome2png/?u=F09B&amp;amp;h=18&amp;amp;c=ffffff' /&gt;/sperelson/awesome2png&lt;/a&gt;. And that Github icon was rendered dynamically on the server side.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Schema For Your Schemaless</title>
+   <link href="http://blog.hapnic.com/2013/04/27/Schema-For-Your-Schemaless"/>
+   <updated>2013-04-27T00:00:00+02:00</updated>
+   <id>http://blog.hapnic.com/2013/04/27/Schema-For-Your-Schemaless</id>
+   <content type="html">&lt;p&gt;I love databases. Most developers couldn&amp;#8217;t give two hoots though. You love databases too? Good. Thanks.&lt;/p&gt;
+
+&lt;p&gt;Do you use schemaless databases like MongoDB&lt;a href='#footnote'&gt;*&lt;/a&gt; or one of the many others? I&amp;#8217;ll bet that you enjoy the freedom those NoSQL databases offer?&lt;/p&gt;
+
+&lt;p&gt;But, do you still plan a design for the data&amp;#8217;s structure even though you are using a schemaless database? No? Well, that&amp;#8217;s a little daft.&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;p&gt;Heh, I just called you daft. Sorry about that. I should probably back up my assertion with an example. And, since I have no imagination lately due in no small part by 17 month old twins keeping me awake, I&amp;#8217;ll be using a real world example I&amp;#8217;ve recently encountered.&lt;/p&gt;
+
+&lt;h2 id='the_example'&gt;The Example&lt;/h2&gt;
+
+&lt;p&gt;This is a simple problem: store unique user visit counts for day, week, and month periods.&lt;/p&gt;
+
+&lt;p&gt;If you were to store this data in a relational database you could get away with a single table. With clever use of fields and indexes this approach is probably the simplest of all the ways you could solve this problem. It wouldn&amp;#8217;t even use that much storage, but some simple aggregation could simplify the counts down for any period.&lt;/p&gt;
+
+&lt;p&gt;The solution I was tasked to refactor was implemented in MongoDB and had some unforeseen design limitations. The design made use of a single MongoDB database that holds all of the period collections. This keeps things quite tidy, especially considering that a new collection was being created for every new period.&lt;/p&gt;
+
+&lt;p&gt;That is, a new collection every day for the daily uniques, a new one every week for the weekly uniques, and a new one every month for the monthly uniques. And each of these collections would store the user ID and give this ID a unique index to ensure only one document is created for every user in each of these collections.&lt;/p&gt;
+
+&lt;p&gt;To query a period&amp;#8217;s count, just programatically produce the period&amp;#8217;s collection name and count the documents in the collection.&lt;/p&gt;
+
+&lt;h2 id='why_refactor'&gt;Why Refactor&lt;/h2&gt;
+
+&lt;p&gt;The lack of performance involved with counting documents was not the primary concern. However, disk usage was a problem. The number of unique types and periods being tracked meant that this simple problem was using almost 12GB of disk space in well over a thousand collections by the time I was tasked with redesigning it.&lt;/p&gt;
+
+&lt;h2 id='my_solution'&gt;My Solution&lt;/h2&gt;
+
+&lt;p&gt;Initially, it is easy to forget that you have to track a user identifier in order to ensure tracking of uniques. Understanding that you have to keep an account of the user identifiers for the current period is important and meant that the existing code and data formed the basis for the refactored solution. This also meant limited refactoring of the underlying codebase instead of a complete rewrite that could introduce severe bugs.&lt;/p&gt;
+
+&lt;p&gt;To start this kind of refactor, you must understand the database&amp;#8217;s features and limitations. For example, why is the user&amp;#8217;s identifier stored as an element in a document with its own unique index when the document&amp;#8217;s MongoID, the &amp;#8220;_id&amp;#8221;, can be used instead.&lt;/p&gt;
+
+&lt;p&gt;This simple reuse of the &amp;#8220;_id&amp;#8221; to hold the user&amp;#8217;s identifier instead would result in a drastic reduction in the required storage space as the document would be half the size and would not need the extra index.&lt;/p&gt;
+
+&lt;p&gt;The next step was to summarise the existing data into a special summary counts collection. The existing programmatic collection names were used as these document&amp;#8217;s MongoIDs to again reuse the existing index. A cron job runs the script after midnight to tally any old period collections and drop them.&lt;/p&gt;
+
+&lt;p&gt;The end result is a dramatic reduction in disk usage and an improvement in performance when viewing old data.&lt;/p&gt;
+
+&lt;h2 id='conclusion'&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Not planning for the eventual growth of your data is going to be devastating for your application. Always understand how your data will grow and what the implications of that growth will be.&lt;/p&gt;
+
+&lt;p&gt;It helps knowing the features and limitations of the data store you are using. For example, trying to use MongoDB to perform real-time aggregate queries would be like trying to use MySQL to hold blobs of Json data for your web app.&lt;/p&gt;
+
+&lt;p&gt;Finally, always plan ahead, plan in pencil, and have an eraser handy.&lt;/p&gt;
+&lt;a id='footnote' /&gt;
+&lt;p&gt;&lt;em&gt;* &lt;a href='http://www.mongodb.org/'&gt;MongoDB&lt;/a&gt; is more accurately described as having a dynamic schema and is loads of fun to play with.&lt;/em&gt;&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Used PHP as a Proxy to a Go Service</title>
+   <link href="http://blog.hapnic.com/2013/03/29/Used-PHP-as-a-Proxy-to-a-Go-Service"/>
+   <updated>2013-03-29T00:00:00+02:00</updated>
+   <id>http://blog.hapnic.com/2013/03/29/Used-PHP-as-a-Proxy-to-a-Go-Service</id>
+   <content type="html">&lt;p&gt;I love playing with new technology and that includes programming languages and environments. I&amp;#8217;ve been wanting to use &lt;a href='http://golang.org/'&gt;Go&lt;/a&gt; in a project for a while and the last time I tried I was not thrilled with the method my web host uses to run custom apps.&lt;/p&gt;
+
+&lt;p&gt;It isn&amp;#8217;t like they do it badly or wrong. It&amp;#8217;s just that if the process dies, it isn&amp;#8217;t trivial to get it going again. Minutes of dead website is minutes of dead website. Not something any web developer wants. But, I think I have a solution.&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;h2 id='current_state'&gt;Current State&lt;/h2&gt;
+
+&lt;p&gt;Webfaction is a seriously awesome web host. You get a virtual piece of a hardcore server that you can do almost anything with. If you haven&amp;#8217;t checked them out do yourself a favour and me a huge one and please use this affliate link: &lt;a href='http://www.webfaction.com?affiliate=sperelson'&gt;Webfaction&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Webfaction offer a huge list of preconfigured services that include options for Django, Wordpress, Rails, Drupal, and more. You also have the option of a custom application. Through a bit of effort I discovered that you can easily compile a Go program in a correctly configured CentOs 6.3 virtual machine and run the resulting executable in your Webfaction server account.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, the issue I have with this is that the default approach to setting up a custom application on Webfaction is to expose the service on an assigned port, which is then exposed through some magic via a virtual host via an Nginx front-end.&lt;/p&gt;
+
+&lt;p&gt;If the custom service dies nothing will restart it unless you set up a cron job to verify that it is running. And then you&amp;#8217;re stuck waiting a few minutes before it gets restarted at the worst end. Also, avoiding downtime during upgrades is very difficult.&lt;/p&gt;
+
+&lt;h2 id='one_solution'&gt;One Solution&lt;/h2&gt;
+
+&lt;p&gt;I realised that I could easily use a standard scripting language, like PHP, as a proxy to the compiled custom service. This offers some interesting benefits:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Quick restart of the custom service if it dies. Stampeding herds can be minimised with a locking file during the custom service restart.&lt;/li&gt;
+
+&lt;li&gt;The custom service need only handle the tasks that require serious processing and maybe custom session &amp;amp; data management. Leaving common tasks to the scripting front-end.&lt;/li&gt;
+
+&lt;li&gt;The ability to seamlessly upgrade to newer custom service executables is possible. This can be done by bringing up the new custom service on a different port and pointing the front-end script to the new version.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The bad:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Another proxy handling things. All these layers make for a complex system. Not as easy to maintain.&lt;/li&gt;
+
+&lt;li&gt;The development environment becomes tricky to set up. Although, I have dealt with this by creating a nicely set up Vagrant virtual machine.&lt;/li&gt;
+
+&lt;li&gt;Won&amp;#8217;t calling the custom service from a front-end script be slow? Yes, slightly. But, you shouldn&amp;#8217;t be using the custom service for anything that wouldn&amp;#8217;t need what it does best &amp;#8211; fast processing and very cool in-memory stateful data in as much as its benefits outweigh using the front-end script only. Besides, the Webfaction setup means calling the custom service on the localhost. It would be about as fast as calling Memcached from a PHP only driver.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id='conclusion'&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;This combined approach offers a good blend of flexibility and power and the right project should benefit greatly.&lt;/p&gt;
+
+&lt;p&gt;I am looking forward to trying this out in a real-world project. I have something in mind that would work really well. It has parts best handled by the front-end script and parts best handled by an always running custom service.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Set Up A Raspberry Pi As A Media Center</title>
+   <link href="http://blog.hapnic.com/2013/03/04/Set-Up-A-Raspberry-Pi-As-A-Media-Center"/>
+   <updated>2013-03-04T00:00:00+02:00</updated>
+   <id>http://blog.hapnic.com/2013/03/04/Set-Up-A-Raspberry-Pi-As-A-Media-Center</id>
+   <content type="html">&lt;p&gt;I bought a Raspberry Pi and got the Model B with 512 MB ram and, having tried Xbian and then RaspBMC, I am now using Openelec. All three of these Linux distributions are specially made XBMC controlled media centers.&lt;/p&gt;
+
+&lt;p&gt;My RPi with XBMC is controllable via my TV&amp;#8217;s remote control. This remote control works because of the TV&amp;#8217;s implementation of the Consumer Electronics Control interface (CEC). CEC makes this whole setup extra special as we have a single remote for the whole setup and is easier to use by the whole family.&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;p&gt;I&amp;#8217;ll add some more details about how I have set up the RPi as a media center and some of the pitfalls I have discovered in the next few days. To get the details started: we use the RPi to stream Internet radio, watch Youtube videos, play media from anywhere on the local network, and to play some videos stored on the SD card in RPi itself. The RPi has turned our not smart TV into something far more capable than a smart TV.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Used A Smartphone And What A Joke It Was</title>
+   <link href="http://blog.hapnic.com/2013/02/15/a-smartphone-and-what-a-joke-it-was"/>
+   <updated>2013-02-15T00:00:00+02:00</updated>
+   <id>http://blog.hapnic.com/2013/02/15/a-smartphone-and-what-a-joke-it-was</id>
+   <content type="html">&lt;p&gt;Smartphone was a term that used to have a pretty specific meaning. Now it seems as if all marketing efforts refer to any phone that allows the user to accomplish some Web connected jobs as smartphones.&lt;/p&gt;
+
+&lt;p&gt;If I were to ask you to mention two smartphones, which would you reply with? Perhaps Apple&amp;#8217;s iPhone? Maybe Samsung&amp;#8217;s Galaxy range or any of the Android based handsets? Or maybe: Blackberry; Symbian; Asha; and the list goes on.&lt;/p&gt;
+
+&lt;p&gt;Not all of those are smartphones though &amp;#8211; not when I apply my definition of the term.&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;p&gt;Would you be surprised if I said that Apple&amp;#8217;s iPhone is not a smartphone? I classify the iPhone as a mobile application platform with a phone attached. Due to its strict sandboxing, very few of apps can extend the phone functionality in any meaningful way. You have to jailbreak to get true power.&lt;/p&gt;
+
+&lt;p&gt;Want a custom phone profile during meetings so you phone goes to silent automatically based on your calendar? If you know better, let me know, but I don&amp;#8217;t think it is possible to add an app to an iPhone that can do that.&lt;/p&gt;
+
+&lt;p&gt;I&amp;#8217;m not saying the iPhone isn&amp;#8217;t an incredible application platform for mobile apps. It is fantastic for that. It just doesn&amp;#8217;t do anything to make itself a smartphone. Android helps make the phone smarter. Even Symbian gave the app developers the power to improve the phone&amp;#8217;s capabilities.&lt;/p&gt;
+
+&lt;p&gt;So, if you want a smart&lt;strong&gt;phone&lt;/strong&gt; then choose a phone that gives you the power to extend its phone. In the meantime, lets choose a more appropriate name for mobile application devices. How about Marvin?&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Found Happiness With Git and Github</title>
    <link href="http://blog.hapnic.com/2013/01/21/Git-and-Github"/>
    <updated>2013-01-21T00:00:00+02:00</updated>
    <id>http://blog.hapnic.com/2013/01/21/Git-and-Github</id>
@@ -35,7 +181,7 @@
  </entry>
  
  <entry>
-   <title>Vagrant</title>
+   <title>Grown To Love Vagrant</title>
    <link href="http://blog.hapnic.com/2013/01/20/Vagrant"/>
    <updated>2013-01-20T00:00:00+02:00</updated>
    <id>http://blog.hapnic.com/2013/01/20/Vagrant</id>
@@ -57,7 +203,7 @@
  </entry>
  
  <entry>
-   <title>Jekyll and Jekyll-Bootstrap</title>
+   <title>Started Using Jekyll and Jekyll-Bootstrap</title>
    <link href="http://blog.hapnic.com/2013/01/19/jekyll-and-jekyll-bootstrap"/>
    <updated>2013-01-19T00:00:00+02:00</updated>
    <id>http://blog.hapnic.com/2013/01/19/jekyll-and-jekyll-bootstrap</id>

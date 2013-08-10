@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <title>
       
-        Categories - 
+        Server Side Font Glyph Rendering - 
       
       I've Just
     </title>
-    
+    <meta name="description" content="A demonstration of server-side font glyph rendering">
     <meta name="author" content="Stephen Perelson">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- HTML5 shim, for IE6-8 support of HTML elements -->
@@ -76,7 +76,7 @@
     
       
       	
-      	<li class="active"><a href="/categories.html" class="active">Categories</a></li>
+      	<li><a href="/categories.html">Categories</a></li>
       	
       
     
@@ -138,32 +138,87 @@
     <div class="container">
       <div class="content">
         
-<div class="page-header-wrapper">
-	<div class="page-header">
-  		<h1>Categories </h1>
-  	</div>
+<div class="page-header">
+  <h1>
+    Server Side Font Glyph Rendering 
+    
+  </h1>
 </div>
 
 <div class="row">
-  <div class="span12">
+  <div class="span8">
+    <p>Client side rendering of glyphs stored in font files is becoming quite prevalent. However, just because rendering the glyphs on the client side is the generally accepted method, doesn&#8217;t mean all web browsers are capable.</p>
+
+<p>In those times where the client web browser is lacking, typically for underpowered (and very cheap) feature phones, allowing the graceful fallback to a server hosted version of the glyph is preferable to displaying nothing.</p>
+
+<h3 id='technical_overview'>Technical Overview</h3>
+
+<p>I coded a quick and simple PHP class that renders a unicode character from the Font Awesome TTF file. You can visit the source at <a href='https://github.com/sperelson/awesome2png'><img alt='' src='http://hapnic.com/awesome2png/?u=F09B&amp;h=18&amp;c=ffffff' />/sperelson/awesome2png</a>. And that Github icon was rendered dynamically on the server side.</p>
+    <hr>
+    <div class="pagination btn-group">
+      
+        <a class="btn prev" href="/2013/04/27/Schema-For-Your-Schemaless" title="Schema For Your Schemaless">&larr; Previous</a>
+      
+        <a class="btn" href="/archive.html">Archive</a>
+      
+        <a class="btn next disabled">Next &rarr;</a>
+      
+    </div>
+    <hr>
     
 
-<ul class="tag_box inline">
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'ivejustused'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
   
-  
+  <div class="span4">
+    <section>
+      <h4>Published</h4>
+      <div class="date"><span>10 August 2013</span></div>
+    </section>
+         
+    
+      <section>
+        <h4>Tags</h4>
+        <ul class="tag_box">
+          
+          
 
 
   
+     
+    	<li><a href="/tags.html#PHP-ref">PHP <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#Font Glyph-ref">Font Glyph <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#Font Awesome-ref">Font Awesome <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#GD-ref">GD <span>1</span></a></li>
     
   
 
 
-</ul>
 
-
-
-
-
+        </ul>
+      </section>
+             
   </div>
 </div>
 

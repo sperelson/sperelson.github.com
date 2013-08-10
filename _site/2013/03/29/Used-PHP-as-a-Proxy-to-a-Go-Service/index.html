@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <title>
       
-        Found Happiness With Git and Github - 
+        Used PHP as a Proxy to a Go Service - 
       
       I've Just
     </title>
-    <meta name="description" content="Source control with Git">
+    <meta name="description" content="Improve reliability and availability of custom processes on a virtual hosting platform">
     <meta name="author" content="Stephen Perelson">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- HTML5 shim, for IE6-8 support of HTML elements -->
@@ -140,36 +140,62 @@
         
 <div class="page-header">
   <h1>
-    Found Happiness With Git and Github 
+    Used PHP as a Proxy to a Go Service 
     
   </h1>
 </div>
 
 <div class="row">
   <div class="span8">
-    <p>I&#8217;ve always liked the idea behind revision control systems. I don&#8217;t think it matters which <a href='http://en.wikipedia.org/wiki/Revision_control'>revision control system</a> you use as long as it supports you and your team&#8217;s development workflow.</p>
+    <p>I love playing with new technology and that includes programming languages and environments. I&#8217;ve been wanting to use <a href='http://golang.org/'>Go</a> in a project for a while and the last time I tried I was not thrilled with the method my web host uses to run custom apps.</p>
 
-<p>I am quite practiced with using Git and Github for my personal and client work. The early days of Git were, however, not very user friendly. You had to be familiar with the CLI and Windows was not easily supported.</p>
+<p>It isn&#8217;t like they do it badly or wrong. It&#8217;s just that if the process dies, it isn&#8217;t trivial to get it going again. Minutes of dead website is minutes of dead website. Not something any web developer wants. But, I think I have a solution.</p>
 <!--more-->
-<p>That has changed a lot recently with Github&#8217;s introduction of GUI clients for Mac OS X and for Windows. And what really impresses with Github&#8217;s clients are their simplified approaches to the most common Git operations. You still have the full power that Git&#8217;s CLI offers, but you most likely will never have to use that power.</p>
+<h2 id='current_state'>Current State</h2>
 
-<p><a href='https://github.com'>Github</a> offers a central store for your code repositories and almost all the code for the projects I work on are hosted there. Some people are even using Github for unusual projects such as the person who is tracking issues on his <a href='https://github.com/frabcus/house'>house</a>. I&#8217;m using Github to host the blog you are reading!</p>
+<p>Webfaction is a seriously awesome web host. You get a virtual piece of a hardcore server that you can do almost anything with. If you haven&#8217;t checked them out do yourself a favour and me a huge one and please use this affliate link: <a href='http://www.webfaction.com?affiliate=sperelson'>Webfaction</a>.</p>
 
-<h3 id='what_does_revision_control_really_offer_you'>What does revision control really offer you?</h3>
+<p>Webfaction offer a huge list of preconfigured services that include options for Django, Wordpress, Rails, Drupal, and more. You also have the option of a custom application. Through a bit of effort I discovered that you can easily compile a Go program in a correctly configured CentOs 6.3 virtual machine and run the resulting executable in your Webfaction server account.</p>
 
-<p>Revision control give you the undeniable proof of how code has evolved and who was to blame for that. Git also give you the power to test out concepts and new features without affecting the primary source code through the use of branches.</p>
+<p>Unfortunately, the issue I have with this is that the default approach to setting up a custom application on Webfaction is to expose the service on an assigned port, which is then exposed through some magic via a virtual host via an Nginx front-end.</p>
 
-<h3 id='ps'>P.S.</h3>
+<p>If the custom service dies nothing will restart it unless you set up a cron job to verify that it is running. And then you&#8217;re stuck waiting a few minutes before it gets restarted at the worst end. Also, avoiding downtime during upgrades is very difficult.</p>
 
-<p>There are other really good Git clients out there and you are definitely not restricted to using Github to host your central repository.</p>
+<h2 id='one_solution'>One Solution</h2>
+
+<p>I realised that I could easily use a standard scripting language, like PHP, as a proxy to the compiled custom service. This offers some interesting benefits:</p>
+
+<ul>
+<li>Quick restart of the custom service if it dies. Stampeding herds can be minimised with a locking file during the custom service restart.</li>
+
+<li>The custom service need only handle the tasks that require serious processing and maybe custom session &amp; data management. Leaving common tasks to the scripting front-end.</li>
+
+<li>The ability to seamlessly upgrade to newer custom service executables is possible. This can be done by bringing up the new custom service on a different port and pointing the front-end script to the new version.</li>
+</ul>
+
+<p>The bad:</p>
+
+<ul>
+<li>Another proxy handling things. All these layers make for a complex system. Not as easy to maintain.</li>
+
+<li>The development environment becomes tricky to set up. Although, I have dealt with this by creating a nicely set up Vagrant virtual machine.</li>
+
+<li>Won&#8217;t calling the custom service from a front-end script be slow? Yes, slightly. But, you shouldn&#8217;t be using the custom service for anything that wouldn&#8217;t need what it does best &#8211; fast processing and very cool in-memory stateful data in as much as its benefits outweigh using the front-end script only. Besides, the Webfaction setup means calling the custom service on the localhost. It would be about as fast as calling Memcached from a PHP only driver.</li>
+</ul>
+
+<h2 id='conclusion'>Conclusion</h2>
+
+<p>This combined approach offers a good blend of flexibility and power and the right project should benefit greatly.</p>
+
+<p>I am looking forward to trying this out in a real-world project. I have something in mind that would work really well. It has parts best handled by the front-end script and parts best handled by an always running custom service.</p>
     <hr>
     <div class="pagination btn-group">
       
-        <a class="btn prev" href="/2013/01/20/Vagrant" title="Grown To Love Vagrant">&larr; Previous</a>
+        <a class="btn prev" href="/2013/03/04/Set-Up-A-Raspberry-Pi-As-A-Media-Center" title="Set Up A Raspberry Pi As A Media Center">&larr; Previous</a>
       
         <a class="btn" href="/archive.html">Archive</a>
       
-        <a class="btn next" href="/2013/02/15/a-smartphone-and-what-a-joke-it-was" title="Used A Smartphone And What A Joke It Was">Next &rarr;</a>
+        <a class="btn next" href="/2013/04/27/Schema-For-Your-Schemaless" title="Schema For Your Schemaless">Next &rarr;</a>
       
     </div>
     <hr>
@@ -199,7 +225,7 @@
   <div class="span4">
     <section>
       <h4>Published</h4>
-      <div class="date"><span>21 January 2013</span></div>
+      <div class="date"><span>29 March 2013</span></div>
     </section>
          
     
@@ -212,11 +238,15 @@
 
   
      
-    	<li><a href="/tags.html#Git-ref">Git <span>1</span></a></li>
+    	<li><a href="/tags.html#Go-ref">Go <span>1</span></a></li>
      
-    	<li><a href="/tags.html#Github-ref">Github <span>2</span></a></li>
+    	<li><a href="/tags.html#GoLang-ref">GoLang <span>1</span></a></li>
      
-    	<li><a href="/tags.html#development-ref">development <span>2</span></a></li>
+    	<li><a href="/tags.html#PHP-ref">PHP <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#VPS-ref">VPS <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#Webfaction-ref">Webfaction <span>1</span></a></li>
     
   
 

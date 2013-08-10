@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <title>
       
-        Found Happiness With Git and Github - 
+        Schema For Your Schemaless - 
       
       I've Just
     </title>
-    <meta name="description" content="Source control with Git">
+    <meta name="description" content="If you're not designing your schemaless DB, then you're doing it wrong">
     <meta name="author" content="Stephen Perelson">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- HTML5 shim, for IE6-8 support of HTML elements -->
@@ -140,36 +140,66 @@
         
 <div class="page-header">
   <h1>
-    Found Happiness With Git and Github 
+    Schema For Your Schemaless 
     
   </h1>
 </div>
 
 <div class="row">
   <div class="span8">
-    <p>I&#8217;ve always liked the idea behind revision control systems. I don&#8217;t think it matters which <a href='http://en.wikipedia.org/wiki/Revision_control'>revision control system</a> you use as long as it supports you and your team&#8217;s development workflow.</p>
+    <p>I love databases. Most developers couldn&#8217;t give two hoots though. You love databases too? Good. Thanks.</p>
 
-<p>I am quite practiced with using Git and Github for my personal and client work. The early days of Git were, however, not very user friendly. You had to be familiar with the CLI and Windows was not easily supported.</p>
+<p>Do you use schemaless databases like MongoDB<a href='#footnote'>*</a> or one of the many others? I&#8217;ll bet that you enjoy the freedom those NoSQL databases offer?</p>
+
+<p>But, do you still plan a design for the data&#8217;s structure even though you are using a schemaless database? No? Well, that&#8217;s a little daft.</p>
 <!--more-->
-<p>That has changed a lot recently with Github&#8217;s introduction of GUI clients for Mac OS X and for Windows. And what really impresses with Github&#8217;s clients are their simplified approaches to the most common Git operations. You still have the full power that Git&#8217;s CLI offers, but you most likely will never have to use that power.</p>
+<p>Heh, I just called you daft. Sorry about that. I should probably back up my assertion with an example. And, since I have no imagination lately due in no small part by 17 month old twins keeping me awake, I&#8217;ll be using a real world example I&#8217;ve recently encountered.</p>
 
-<p><a href='https://github.com'>Github</a> offers a central store for your code repositories and almost all the code for the projects I work on are hosted there. Some people are even using Github for unusual projects such as the person who is tracking issues on his <a href='https://github.com/frabcus/house'>house</a>. I&#8217;m using Github to host the blog you are reading!</p>
+<h2 id='the_example'>The Example</h2>
 
-<h3 id='what_does_revision_control_really_offer_you'>What does revision control really offer you?</h3>
+<p>This is a simple problem: store unique user visit counts for day, week, and month periods.</p>
 
-<p>Revision control give you the undeniable proof of how code has evolved and who was to blame for that. Git also give you the power to test out concepts and new features without affecting the primary source code through the use of branches.</p>
+<p>If you were to store this data in a relational database you could get away with a single table. With clever use of fields and indexes this approach is probably the simplest of all the ways you could solve this problem. It wouldn&#8217;t even use that much storage, but some simple aggregation could simplify the counts down for any period.</p>
 
-<h3 id='ps'>P.S.</h3>
+<p>The solution I was tasked to refactor was implemented in MongoDB and had some unforeseen design limitations. The design made use of a single MongoDB database that holds all of the period collections. This keeps things quite tidy, especially considering that a new collection was being created for every new period.</p>
 
-<p>There are other really good Git clients out there and you are definitely not restricted to using Github to host your central repository.</p>
+<p>That is, a new collection every day for the daily uniques, a new one every week for the weekly uniques, and a new one every month for the monthly uniques. And each of these collections would store the user ID and give this ID a unique index to ensure only one document is created for every user in each of these collections.</p>
+
+<p>To query a period&#8217;s count, just programatically produce the period&#8217;s collection name and count the documents in the collection.</p>
+
+<h2 id='why_refactor'>Why Refactor</h2>
+
+<p>The lack of performance involved with counting documents was not the primary concern. However, disk usage was a problem. The number of unique types and periods being tracked meant that this simple problem was using almost 12GB of disk space in well over a thousand collections by the time I was tasked with redesigning it.</p>
+
+<h2 id='my_solution'>My Solution</h2>
+
+<p>Initially, it is easy to forget that you have to track a user identifier in order to ensure tracking of uniques. Understanding that you have to keep an account of the user identifiers for the current period is important and meant that the existing code and data formed the basis for the refactored solution. This also meant limited refactoring of the underlying codebase instead of a complete rewrite that could introduce severe bugs.</p>
+
+<p>To start this kind of refactor, you must understand the database&#8217;s features and limitations. For example, why is the user&#8217;s identifier stored as an element in a document with its own unique index when the document&#8217;s MongoID, the &#8220;_id&#8221;, can be used instead.</p>
+
+<p>This simple reuse of the &#8220;_id&#8221; to hold the user&#8217;s identifier instead would result in a drastic reduction in the required storage space as the document would be half the size and would not need the extra index.</p>
+
+<p>The next step was to summarise the existing data into a special summary counts collection. The existing programmatic collection names were used as these document&#8217;s MongoIDs to again reuse the existing index. A cron job runs the script after midnight to tally any old period collections and drop them.</p>
+
+<p>The end result is a dramatic reduction in disk usage and an improvement in performance when viewing old data.</p>
+
+<h2 id='conclusion'>Conclusion</h2>
+
+<p>Not planning for the eventual growth of your data is going to be devastating for your application. Always understand how your data will grow and what the implications of that growth will be.</p>
+
+<p>It helps knowing the features and limitations of the data store you are using. For example, trying to use MongoDB to perform real-time aggregate queries would be like trying to use MySQL to hold blobs of Json data for your web app.</p>
+
+<p>Finally, always plan ahead, plan in pencil, and have an eraser handy.</p>
+<a id='footnote' />
+<p><em>* <a href='http://www.mongodb.org/'>MongoDB</a> is more accurately described as having a dynamic schema and is loads of fun to play with.</em></p>
     <hr>
     <div class="pagination btn-group">
       
-        <a class="btn prev" href="/2013/01/20/Vagrant" title="Grown To Love Vagrant">&larr; Previous</a>
+        <a class="btn prev" href="/2013/03/29/Used-PHP-as-a-Proxy-to-a-Go-Service" title="Used PHP as a Proxy to a Go Service">&larr; Previous</a>
       
         <a class="btn" href="/archive.html">Archive</a>
       
-        <a class="btn next" href="/2013/02/15/a-smartphone-and-what-a-joke-it-was" title="Used A Smartphone And What A Joke It Was">Next &rarr;</a>
+        <a class="btn next" href="/2013/08/10/Server-Side-Font-Glyph-Rendering" title="Server Side Font Glyph Rendering">Next &rarr;</a>
       
     </div>
     <hr>
@@ -199,7 +229,7 @@
   <div class="span4">
     <section>
       <h4>Published</h4>
-      <div class="date"><span>21 January 2013</span></div>
+      <div class="date"><span>27 April 2013</span></div>
     </section>
          
     
@@ -212,11 +242,13 @@
 
   
      
-    	<li><a href="/tags.html#Git-ref">Git <span>1</span></a></li>
+    	<li><a href="/tags.html#DB-ref">DB <span>1</span></a></li>
      
-    	<li><a href="/tags.html#Github-ref">Github <span>2</span></a></li>
+    	<li><a href="/tags.html#Schema-ref">Schema <span>1</span></a></li>
      
-    	<li><a href="/tags.html#development-ref">development <span>2</span></a></li>
+    	<li><a href="/tags.html#Schemaless-ref">Schemaless <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#MongoDB-ref">MongoDB <span>1</span></a></li>
     
   
 
