@@ -19,7 +19,7 @@ ElastiCache is the reason for this post so I will describe it quickly.
 
 Imagine a flexible cluster of Memcached instances each running on a server and your Web application can discover them all through a connection to a master instance.
 
-It is simple and easy and all you have to do is enable some freaky options in the MemcacheD driver: OPT_CLIENT_MODE & DYNAMIC_CLIENT_MODE.
+It is simple and easy and all you have to do is enable some freaky options in the Memcached driver: OPT_CLIENT_MODE & DYNAMIC_CLIENT_MODE.
 
 However, that is a problem with a few parts. Firstly, you do not have the AWS Memcached driver when running things locally so trying to set these options will crash your script.
 
