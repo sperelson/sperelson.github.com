@@ -30,11 +30,13 @@ Secondly, we use the [Laravel](http://laravel.com/) PHP framework and it has no 
 
 First we need to create our own version of the Memcached Connector (MemcachedConnector.php). I placed this one in /app/libraries/ElasticacheConnector.php:
 
-<script src="https://gist.github.com/sperelson/6528932.js"></script>
+<script src="https://gist.github.com/sperelson/6528932.js">
+</script>
 
 I then included a PHP file in app/start named for the environment that will be running with ElastiCache (prod.php) with the following code:
 
-<script src="https://gist.github.com/sperelson/6528976.js"></script>
+<script src="https://gist.github.com/sperelson/6528976.js">
+</script>
 
 Set the cache.driver config value to 'elasticache' to ensure that this custom cache driver is used.
 
