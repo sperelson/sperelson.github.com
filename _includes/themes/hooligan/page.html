@@ -1,6 +1,6 @@
 <div class="page-header-wrapper">
 	{% if page.url == '/index.html' %}
-	<!--div style="float: right;">
+	<div style="float: right;">
       <input type="text" placeholder="search" id="search" class="input-medium search-query">
       <style id="search_input_style">
         input.search-query {
@@ -39,7 +39,7 @@
           // beware of css injections!
         });
       </script>
-	</div-->
+	</div>
 	{% endif %}
 	<div class="page-header">
   		<h1>{{ page.title }} {% if page.tagline %} <small>{{ page.tagline }}</small>{% endif %}</h1>
