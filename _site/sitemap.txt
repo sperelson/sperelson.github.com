@@ -7,6 +7,9 @@ http://blog.hapnic.com/pages.html
 http://blog.hapnic.com/sitemap.txt
 http://blog.hapnic.com/tags.html
 
+http://blog.hapnic.com/2013/09/11/Laravel-4-and-ElastiCache
+http://blog.hapnic.com/2013/09/02/Tracking-Mxit-Apps
+http://blog.hapnic.com/2013/09/01/The-Software-Developer
 http://blog.hapnic.com/2013/08/10/Server-Side-Font-Glyph-Rendering
 http://blog.hapnic.com/2013/04/27/Schema-For-Your-Schemaless
 http://blog.hapnic.com/2013/03/29/Used-PHP-as-a-Proxy-to-a-Go-Service

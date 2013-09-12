@@ -4,13 +4,143 @@
  <title>I've Just</title>
  <link href="http://blog.hapnic.com/atom.xml" rel="self"/>
  <link href="http://blog.hapnic.com"/>
- <updated>2013-08-10T15:11:18+02:00</updated>
+ <updated>2013-09-12T09:42:07+02:00</updated>
  <id>http://blog.hapnic.com</id>
  <author>
    <name>Stephen Perelson</name>
    <email>stephen@hapnic.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Laravel 4 and ElastiCache</title>
+   <link href="http://blog.hapnic.com/2013/09/11/Laravel-4-and-ElastiCache"/>
+   <updated>2013-09-11T00:00:00+02:00</updated>
+   <id>http://blog.hapnic.com/2013/09/11/Laravel-4-and-ElastiCache</id>
+   <content type="html">&lt;p&gt;My team uses Amazon&amp;#8217;s Web services (AWS) to meet our day-to-day Internet and Web needs. Our hosting stack is very straightforward and we try to use many of the services offered by AWS. These include CloudFormation, Elastic Beanstalk, as well as ElastiCache.&lt;/p&gt;
+
+&lt;p&gt;Therein lies our problem. Laravel does not support ElastiCache without custom extensions. I&amp;#8217;m going to share how I have implemented this custom cache extension.&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;h2 id='problems'&gt;Problems&lt;/h2&gt;
+
+&lt;p&gt;ElastiCache is the reason for this post so I will describe it quickly.&lt;/p&gt;
+
+&lt;p&gt;Imagine a flexible cluster of Memcached instances each running on a server and your Web application can discover them all through a connection to a master instance.&lt;/p&gt;
+
+&lt;p&gt;It is simple and easy and all you have to do is enable some freaky options in the Memcached driver: OPT_CLIENT_MODE &amp;amp; DYNAMIC_CLIENT_MODE.&lt;/p&gt;
+
+&lt;p&gt;However, that is a problem with a few parts. Firstly, you do not have the AWS Memcached driver when running things locally so trying to set these options will crash your script.&lt;/p&gt;
+
+&lt;p&gt;Secondly, we use the &lt;a href='http://laravel.com/'&gt;Laravel&lt;/a&gt; PHP framework and it has no concept of ElastiCache in their default Memcached caching driver. Which means you have to extend the cache driver with one of your own devising.&lt;/p&gt;
+
+&lt;h2 id='solution'&gt;Solution&lt;/h2&gt;
+
+&lt;p&gt;First we need to create our own version of the Memcached Connector (MemcachedConnector.php). I placed this one in /app/libraries/ElasticacheConnector.php:&lt;/p&gt;
+&lt;script src='https://gist.github.com/sperelson/6528932.js'&gt;
+&lt;/script&gt;
+&lt;p&gt;I then included a PHP file in app/start named for the environment that will be running with ElastiCache (prod.php) with the following code:&lt;/p&gt;
+&lt;script src='https://gist.github.com/sperelson/6528976.js'&gt;
+&lt;/script&gt;
+&lt;p&gt;Set the cache.driver config value to &amp;#8216;elasticache&amp;#8217; to ensure that this custom cache driver is used.&lt;/p&gt;
+
+&lt;h2 id='conclusion'&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;What is interesting here is that I am not writing a new driver for ElastiCache. I am only modifying the connection to make use of the required options that enables the dynamic discovery of the ElastiCache servers. I have also done this in such a way that you could use this custom cache driver for local development if you wanted to not worry about the different configs. This works because the options are only applied if they exist.&lt;/p&gt;
+
+&lt;p&gt;I have used the equivalent of this technique for Laravel 3.x in another project but I have yet to test this particular code in production. So, your mileage may vary and I&amp;#8217;ll add the disclaimer that you use any code or methods presented here at your own risk. Please let me know if you encounter any issues - I will update the post as necessary.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Tracking Mxit Apps</title>
+   <link href="http://blog.hapnic.com/2013/09/02/Tracking-Mxit-Apps"/>
+   <updated>2013-09-02T00:00:00+02:00</updated>
+   <id>http://blog.hapnic.com/2013/09/02/Tracking-Mxit-Apps</id>
+   <content type="html">&lt;p&gt;Tracking the usage of any application is pretty useful stuff. So useful in fact that there are a plethora of SAAS offerings out there for collecting data for analytics, some even free to use. It doesn&amp;#8217;t take much effort to ensure that any of your apps feed useful data back to one of these services to generate useful statistics.&lt;/p&gt;
+
+&lt;p&gt;But, certain environments make the default collection methods very difficult to use. One such environment would be Mxit&amp;#8217;s portal applications. These portal applications are parsed through a special proxy server and are displayed in a very constrained client application that offers no scripting. Meaning every bit of intelligence must be built into the application&amp;#8217;s server-based logic stack.&lt;/p&gt;
+
+&lt;p&gt;I recently implemented an image-based tracking method to enable tracking via Effective Measure for some Mxit portal application properties. This is how I did it.&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;h2 id='solution'&gt;Solution&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Insert an image tag pointing to a handler server-side with a cache busting, dynamically generated unique nonce&lt;/li&gt;
+
+&lt;li&gt;Collect the data for stats submission and submit&lt;/li&gt;
+
+&lt;li&gt;Collect the data that would be handled by cookies and store server-side (Memcached works well)&lt;/li&gt;
+
+&lt;li&gt;Return a single pixel transparent gif&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id='cache_busting_nonce'&gt;Cache Busting Nonce?&lt;/h3&gt;
+
+&lt;p&gt;We have to ensure that the Mxit proxy server does not cache the returned gif. If it does, this method of tracking will never work. But this method does require some planning.&lt;/p&gt;
+
+&lt;p&gt;I typically generate and cache all dynamic pages to ensure performance and this tracking image cannot be cached as well. So my solution is to leave off the closing HTML body tag from the cached page. When a page is requested, I simply assemble the generated or cached page with the tracking image and then slap on the closing HTML tags.&lt;/p&gt;
+
+&lt;p&gt;The beauty of this solution is that you could have multiple tracking tags for different services without affecting page response times. The image request is initiated from the Mxit client and means that the page is rendered on the handset very quickly.&lt;/p&gt;
+
+&lt;h3 id='store_serverside'&gt;Store Server-Side?&lt;/h3&gt;
+
+&lt;p&gt;The Mxit proxy server does not handle certain interactions very well. One example is that many HTTP status responses are not supported and do not fail gracefully. For example, if your app returns a 307 expecting the user to be redirected you would be mistaken and you would quickly learn to stick to a 302.&lt;/p&gt;
+
+&lt;p&gt;More importantly for this solution, the Mxit proxy server does not expect to receive cookies from an image file request. Cookies that your server sends in response to the image request are silently ignored.&lt;/p&gt;
+
+&lt;p&gt;The only solution is to store the session data on the server. AWS offers Elasticache which works very well for this purpose if you&amp;#8217;re hosted on AWS.&lt;/p&gt;
+
+&lt;p&gt;I store all the cookies related to a unique user and application in a single blob of data that is set to never expire. Each cookie stored within the blob should maintain the same values the normal cookie would: expiry, path, domain, and value.&lt;/p&gt;
+
+&lt;p&gt;After reading the cookie, but before using the value stored therein, the expiry date and other values should be checked for validity. So, for example, if the cookie has expired then discard it. Then proceed to update the relevant cookie values with the newer data after a tracking image request.&lt;/p&gt;
+
+&lt;h3 id='return_a_gif'&gt;Return a gif?&lt;/h3&gt;
+
+&lt;p&gt;If you don&amp;#8217;t return a valid image/gif then the Mxit client may display a rather ugly looking Missing Image placeholder. Examples of returning transparent gifs can be found easily enough online.&lt;/p&gt;
+
+&lt;h2 id='conclusion'&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;I&amp;#8217;m using this in production with an application that is receiving about 40,000 page views a day and each page has two different tracking images. It is working very well. This method can also be scaled very nicely from using a dedicated server to a cluster of servers.&lt;/p&gt;
+
+&lt;p&gt;The only failing of this solution is that Mxit clients that do not support images will not be tracked. Fortunately, these clients are a very small percentage of the total.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>The Software Developer</title>
+   <link href="http://blog.hapnic.com/2013/09/01/The-Software-Developer"/>
+   <updated>2013-09-01T00:00:00+02:00</updated>
+   <id>http://blog.hapnic.com/2013/09/01/The-Software-Developer</id>
+   <content type="html">&lt;p&gt;I know a person who calls himself a software developer. I find this strange since I know I am a software developer and I have never considered this person to be one. I mean, why would a person with no coding chops call themselves a software developer?&lt;/p&gt;
+&lt;!--more--&gt;
+&lt;p&gt;I think the answer lies in understanding what this person&amp;#8217;s definition of the title &amp;#8220;software developer&amp;#8221; is. First, the official definition (quoting Wikipedia&amp;#8217;s Software Developer page):&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;A software developer is a person concerned with facets of the software development process. Their work includes researching, designing, implementing, and testing software.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This is a pretty good definition, but this person I know&amp;#8217;s definition is very likely akin to the definition for a property developer (relevant bits cut from the Real Estate Development Wikipedia article):&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Developers &amp;#8230; have builders build projects, create, imagine, control and orchestrate the process of development from the beginning to end.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;There is a definite similarity between these types of developers, but the differences are important. The software developer is a coder while the property developer is a more like the Film Producer (again, a Wikipedia quote for Film Producer):&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Film producers prepare and then supervise the making of a film&amp;#8230;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In other words, a property developer prepares a project and supervises the project to fruition in order to achieve a goal, typically monetary profit. Just like this person I know with his software development projects.&lt;/p&gt;
+
+&lt;p&gt;Do I like that his definition is off? No.&lt;/p&gt;
+
+&lt;p&gt;Is there anything that can be done about it? Short of changing an entire industry to use a different term for software developer, no.&lt;/p&gt;
+
+&lt;p&gt;Maybe, just maybe, this person I know&amp;#8217;s definition should become the standard, industry-wide definition for Software Developer. As soon as that happens then we, the coders of the world can begin calling ourselves something better than Software Developer.&lt;/p&gt;
+
+&lt;p&gt;I have referred to myself as a Software Contriver before, but that was just a bit contrived. I&amp;#8217;m however quite fond of Coder as a reference to any person who can write code for a computer. The term Coder is far more suitable than a specific IT job title. An example of such is my current job that has the title: Senior Web Engineer, which clearly defines an area of expertise and a role therein.&lt;/p&gt;
+
+&lt;p&gt;All said, nothing will change the fact that I get very disappointed when I meet a Software Developer and I find out that this person cannot code. It&amp;#8217;s like meeting a property developer only to find out that person only knows how to lay bricks.&lt;/p&gt;</content>
+ </entry>
  
  <entry>
    <title>Server Side Font Glyph Rendering</title>
@@ -23,7 +153,7 @@
 
 &lt;h3 id='technical_overview'&gt;Technical Overview&lt;/h3&gt;
 
-&lt;p&gt;I coded a quick and simple PHP class that renders a unicode character from the Font Awesome TTF file. You can visit the source at &lt;a href='https://github.com/sperelson/awesome2png'&gt;&lt;img alt='' src='http://hapnic.com/awesome2png/?u=F09B&amp;amp;h=18&amp;amp;c=ffffff' /&gt;/sperelson/awesome2png&lt;/a&gt;. And that Github icon was rendered dynamically on the server side.&lt;/p&gt;</content>
+&lt;p&gt;I coded a quick and simple PHP class that renders a unicode character from the Font Awesome TTF file. You can visit the source at &lt;a href='https://github.com/sperelson/awesome2png'&gt;&lt;img src='http://hapnic.com/awesome2png/?u=F09B&amp;amp;h=18&amp;amp;c=ffffff' alt='' /&gt;/sperelson/awesome2png&lt;/a&gt;. And that Github icon was rendered dynamically on the server side.&lt;/p&gt;</content>
  </entry>
  
  <entry>

@@ -139,6 +139,48 @@
       <div class="content">
         
 <div class="page-header-wrapper">
+	
+	<div style="float: right;">
+      <input type="text" placeholder="search" id="search" class="input-medium search-query">
+      <style id="search_input_style">
+        input.search-query {
+			height: 20px;
+			padding: 4px 6px;
+			margin-top: 20px;
+			font-size: 14px;
+			line-height: 20px;
+			color: #555;
+			margin-bottom: 0;
+			background-color: #fff;
+			border: 1px solid #ccc;
+			-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+			-moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+			box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+			-webkit-transition: border linear .2s,box-shadow linear .2s;
+			-moz-transition: border linear .2s,box-shadow linear .2s;
+			-o-transition: border linear .2s,box-shadow linear .2s;
+			transition: border linear .2s,box-shadow linear .2s;
+			-webkit-border-radius: 15px;
+			-moz-border-radius: 15px;
+			border-radius: 15px;
+        }
+      </style>
+      <style id="search_style">
+      </style>
+      <script type="text/javascript">
+        var searchStyle = document.getElementById('search_style');
+        document.getElementById('search').addEventListener('input', function() {
+          if (!this.value) {
+            searchStyle.innerHTML = "";
+            return;
+          }
+          // look ma, no indexOf!
+          searchStyle.innerHTML = ".searchable:not([data-index*=\"" + this.value.toLowerCase() + "\"]) { display: none; }";
+          // beware of css injections!
+        });
+      </script>
+	</div>
+	
 	<div class="page-header">
   		<h1>I've Just </h1>
   	</div>
@@ -148,7 +190,34 @@
   <div class="span12">
     <div>
   
-    <div style='padding-bottom: 2em;' class='span8'>
+    <div class='span8 searchable' data-index='amazonawselasticachelaravel4development' style='padding-bottom: 2em;'>
+		<h3>11 Sep 2013 &raquo; <a href='/2013/09/11/Laravel-4-and-ElastiCache'>Laravel 4 and ElastiCache</a></h3>
+		<summary><p>My team uses Amazon&#8217;s Web services (AWS) to meet our day-to-day Internet and Web needs. Our hosting stack is very straightforward and we try to use many of the services offered by AWS. These include CloudFormation, Elastic Beanstalk, as well as ElastiCache.</p>
+
+<p>Therein lies our problem. Laravel does not support ElastiCache without custom extensions. I&#8217;m going to share how I have implemented this custom cache extension.</p>
+</summary>
+ 		<div style='font-size: 200%;'><a href='/2013/09/11/Laravel-4-and-ElastiCache'><h5>read more</h5></a></div>
+     </div>
+  
+    <div class='span8 searchable' data-index='mxitanalyticsdevelopmenttracking' style='padding-bottom: 2em;'>
+		<h3>02 Sep 2013 &raquo; <a href='/2013/09/02/Tracking-Mxit-Apps'>Tracking Mxit Apps</a></h3>
+		<summary><p>Tracking the usage of any application is pretty useful stuff. So useful in fact that there are a plethora of SAAS offerings out there for collecting data for analytics, some even free to use. It doesn&#8217;t take much effort to ensure that any of your apps feed useful data back to one of these services to generate useful statistics.</p>
+
+<p>But, certain environments make the default collection methods very difficult to use. One such environment would be Mxit&#8217;s portal applications. These portal applications are parsed through a special proxy server and are displayed in a very constrained client application that offers no scripting. Meaning every bit of intelligence must be built into the application&#8217;s server-based logic stack.</p>
+
+<p>I recently implemented an image-based tracking method to enable tracking via Effective Measure for some Mxit portal application properties. This is how I did it.</p>
+</summary>
+ 		<div style='font-size: 200%;'><a href='/2013/09/02/Tracking-Mxit-Apps'><h5>read more</h5></a></div>
+     </div>
+  
+    <div class='span8 searchable' data-index='softwaredevelopmenttitles' style='padding-bottom: 2em;'>
+		<h3>01 Sep 2013 &raquo; <a href='/2013/09/01/The-Software-Developer'>The Software Developer</a></h3>
+		<summary><p>I know a person who calls himself a software developer. I find this strange since I know I am a software developer and I have never considered this person to be one. I mean, why would a person with no coding chops call themselves a software developer?</p>
+</summary>
+ 		<div style='font-size: 200%;'><a href='/2013/09/01/The-Software-Developer'><h5>read more</h5></a></div>
+     </div>
+  
+    <div class='span8 searchable' data-index='phpfont glyphfont awesomegd' style='padding-bottom: 2em;'>
 		<h3>10 Aug 2013 &raquo; <a href='/2013/08/10/Server-Side-Font-Glyph-Rendering'>Server Side Font Glyph Rendering</a></h3>
 		<summary><p>Client side rendering of glyphs stored in font files is becoming quite prevalent. However, just because rendering the glyphs on the client side is the generally accepted method, doesn&#8217;t mean all web browsers are capable.</p>
 
@@ -156,11 +225,11 @@
 
 <h3 id='technical_overview'>Technical Overview</h3>
 
-<p>I coded a quick and simple PHP class that renders a unicode character from the Font Awesome TTF file. You can visit the source at <a href='https://github.com/sperelson/awesome2png'><img alt='' src='http://hapnic.com/awesome2png/?u=F09B&amp;h=18&amp;c=ffffff' />/sperelson/awesome2png</a>. And that Github icon was rendered dynamically on the server side.</p></summary>
+<p>I coded a quick and simple PHP class that renders a unicode character from the Font Awesome TTF file. You can visit the source at <a href='https://github.com/sperelson/awesome2png'><img src='http://hapnic.com/awesome2png/?u=F09B&amp;h=18&amp;c=ffffff' alt='' />/sperelson/awesome2png</a>. And that Github icon was rendered dynamically on the server side.</p></summary>
  		<div style='font-size: 200%;'><a href='/2013/08/10/Server-Side-Font-Glyph-Rendering'><h5>read more</h5></a></div>
      </div>
   
-    <div style='padding-bottom: 2em;' class='span8'>
+    <div class='span8 searchable' data-index='dbschemaschemalessmongodb' style='padding-bottom: 2em;'>
 		<h3>27 Apr 2013 &raquo; <a href='/2013/04/27/Schema-For-Your-Schemaless'>Schema For Your Schemaless</a></h3>
 		<summary><p>I love databases. Most developers couldn&#8217;t give two hoots though. You love databases too? Good. Thanks.</p>
 
@@ -171,7 +240,7 @@
  		<div style='font-size: 200%;'><a href='/2013/04/27/Schema-For-Your-Schemaless'><h5>read more</h5></a></div>
      </div>
   
-    <div style='padding-bottom: 2em;' class='span8'>
+    <div class='span8 searchable' data-index='gogolangphpvpswebfaction' style='padding-bottom: 2em;'>
 		<h3>29 Mar 2013 &raquo; <a href='/2013/03/29/Used-PHP-as-a-Proxy-to-a-Go-Service'>Used PHP as a Proxy to a Go Service</a></h3>
 		<summary><p>I love playing with new technology and that includes programming languages and environments. I&#8217;ve been wanting to use <a href='http://golang.org/'>Go</a> in a project for a while and the last time I tried I was not thrilled with the method my web host uses to run custom apps.</p>
 
@@ -180,7 +249,7 @@
  		<div style='font-size: 200%;'><a href='/2013/03/29/Used-PHP-as-a-Proxy-to-a-Go-Service'><h5>read more</h5></a></div>
      </div>
   
-    <div style='padding-bottom: 2em;' class='span8'>
+    <div class='span8 searchable' data-index='xbmcraspberry picec' style='padding-bottom: 2em;'>
 		<h3>04 Mar 2013 &raquo; <a href='/2013/03/04/Set-Up-A-Raspberry-Pi-As-A-Media-Center'>Set Up A Raspberry Pi As A Media Center</a></h3>
 		<summary><p>I bought a Raspberry Pi and got the Model B with 512 MB ram and, having tried Xbian and then RaspBMC, I am now using Openelec. All three of these Linux distributions are specially made XBMC controlled media centers.</p>
 
@@ -189,7 +258,7 @@
  		<div style='font-size: 200%;'><a href='/2013/03/04/Set-Up-A-Raspberry-Pi-As-A-Media-Center'><h5>read more</h5></a></div>
      </div>
   
-    <div style='padding-bottom: 2em;' class='span8'>
+    <div class='span8 searchable' data-index='phonessmartphonesmobile' style='padding-bottom: 2em;'>
 		<h3>15 Feb 2013 &raquo; <a href='/2013/02/15/a-smartphone-and-what-a-joke-it-was'>Used A Smartphone And What A Joke It Was</a></h3>
 		<summary><p>Smartphone was a term that used to have a pretty specific meaning. Now it seems as if all marketing efforts refer to any phone that allows the user to accomplish some Web connected jobs as smartphones.</p>
 
@@ -200,7 +269,7 @@
  		<div style='font-size: 200%;'><a href='/2013/02/15/a-smartphone-and-what-a-joke-it-was'><h5>read more</h5></a></div>
      </div>
   
-    <div style='padding-bottom: 2em;' class='span8'>
+    <div class='span8 searchable' data-index='gitgithubdevelopment' style='padding-bottom: 2em;'>
 		<h3>21 Jan 2013 &raquo; <a href='/2013/01/21/Git-and-Github'>Found Happiness With Git and Github</a></h3>
 		<summary><p>I&#8217;ve always liked the idea behind revision control systems. I don&#8217;t think it matters which <a href='http://en.wikipedia.org/wiki/Revision_control'>revision control system</a> you use as long as it supports you and your team&#8217;s development workflow.</p>
 
@@ -209,7 +278,7 @@
  		<div style='font-size: 200%;'><a href='/2013/01/21/Git-and-Github'><h5>read more</h5></a></div>
      </div>
   
-    <div style='padding-bottom: 2em;' class='span8'>
+    <div class='span8 searchable' data-index='vagrantdevelopmentvirtualbox' style='padding-bottom: 2em;'>
 		<h3>20 Jan 2013 &raquo; <a href='/2013/01/20/Vagrant'>Grown To Love Vagrant</a></h3>
 		<summary><p>I am amazed at how quickly I became comfortable using <a href='http://vagrantup.com/'>Vagrant</a>. Especially considering how long I put off using it.</p>
 
@@ -218,7 +287,7 @@
  		<div style='font-size: 200%;'><a href='/2013/01/20/Vagrant'><h5>read more</h5></a></div>
      </div>
   
-    <div style='padding-bottom: 2em;' class='span8'>
+    <div class='span8 searchable' data-index='jekylljekyll-bootstrapgithub' style='padding-bottom: 2em;'>
 		<h3>19 Jan 2013 &raquo; <a href='/2013/01/19/jekyll-and-jekyll-bootstrap'>Started Using Jekyll and Jekyll-Bootstrap</a></h3>
 		<summary><p>I realised that I encounter lots of semi-interesting and interesting technologies quite often. I make the mistake of not writing about my experiences.</p>
 

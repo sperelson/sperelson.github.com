@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <title>
       
-        Grown To Love Vagrant - 
+        Laravel 4 and ElastiCache - 
       
       I've Just
     </title>
-    <meta name="description" content="How to keep your development machine pristine">
+    <meta name="description" content="Extend Laravel 4 to use Amazon's ElastiCache">
     <meta name="author" content="Stephen Perelson">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- HTML5 shim, for IE6-8 support of HTML elements -->
@@ -140,36 +140,52 @@
         
 <div class="page-header">
   <h1>
-    Grown To Love Vagrant 
+    Laravel 4 and ElastiCache 
     
   </h1>
 </div>
 
 <div class="row">
   <div class="span8">
-    <p>I am amazed at how quickly I became comfortable using <a href='http://vagrantup.com/'>Vagrant</a>. Especially considering how long I put off using it.</p>
+    <p>My team uses Amazon&#8217;s Web services (AWS) to meet our day-to-day Internet and Web needs. Our hosting stack is very straightforward and we try to use many of the services offered by AWS. These include CloudFormation, Elastic Beanstalk, as well as ElastiCache.</p>
 
-<p>I liked the idea that my Macbook could run all the daemons and services I would need for any project. Nothing wrong with this approach if you only ever work on a single project. But begin working on different projects and your computer quickly becomes full of a hodgepodge of running processes.</p>
+<p>Therein lies our problem. Laravel does not support ElastiCache without custom extensions. I&#8217;m going to share how I have implemented this custom cache extension.</p>
 <!--more-->
-<p>I would not start a new project now without setting up a Vagrantfile. If you don&#8217;t know what Vagrant is let me explain it very quickly by quoting the website:</p>
+<h2 id='problems'>Problems</h2>
 
-<blockquote>
-<p>Create and configure lightweight, reproducible, and portable development environments.</p>
-</blockquote>
+<p>ElastiCache is the reason for this post so I will describe it quickly.</p>
 
-<p>It does this by leveraging Virtualbox to create and run headless Virtual Machines. These VM&#8217;s use the code that resides in your host OS via a shared folder. So, edit in your primary OS using your favourite editor and see your results immediately via the VM.</p>
+<p>Imagine a flexible cluster of Memcached instances each running on a server and your Web application can discover them all through a connection to a master instance.</p>
 
-<p>I&#8217;ll be honest, setting up your initial Vagrant VM for a project may take a bit of time. Software does not just install itself so you have to script the installation of any software your project will require. However, once done, you will likely reuse your scripts for future projects.</p>
+<p>It is simple and easy and all you have to do is enable some freaky options in the Memcached driver: OPT_CLIENT_MODE &amp; DYNAMIC_CLIENT_MODE.</p>
 
-<p>I really like that Vagrant stops me from cluttering up my computer with loads of software. I also like that the development environment is scriptable and easily shared. I am also amazed at how often I am using Vagrant now.</p>
+<p>However, that is a problem with a few parts. Firstly, you do not have the AWS Memcached driver when running things locally so trying to set these options will crash your script.</p>
+
+<p>Secondly, we use the <a href='http://laravel.com/'>Laravel</a> PHP framework and it has no concept of ElastiCache in their default Memcached caching driver. Which means you have to extend the cache driver with one of your own devising.</p>
+
+<h2 id='solution'>Solution</h2>
+
+<p>First we need to create our own version of the Memcached Connector (MemcachedConnector.php). I placed this one in /app/libraries/ElasticacheConnector.php:</p>
+<script src='https://gist.github.com/sperelson/6528932.js'>
+</script>
+<p>I then included a PHP file in app/start named for the environment that will be running with ElastiCache (prod.php) with the following code:</p>
+<script src='https://gist.github.com/sperelson/6528976.js'>
+</script>
+<p>Set the cache.driver config value to &#8216;elasticache&#8217; to ensure that this custom cache driver is used.</p>
+
+<h2 id='conclusion'>Conclusion</h2>
+
+<p>What is interesting here is that I am not writing a new driver for ElastiCache. I am only modifying the connection to make use of the required options that enables the dynamic discovery of the ElastiCache servers. I have also done this in such a way that you could use this custom cache driver for local development if you wanted to not worry about the different configs. This works because the options are only applied if they exist.</p>
+
+<p>I have used the equivalent of this technique for Laravel 3.x in another project but I have yet to test this particular code in production. So, your mileage may vary and I&#8217;ll add the disclaimer that you use any code or methods presented here at your own risk. Please let me know if you encounter any issues - I will update the post as necessary.</p>
     <hr>
     <div class="pagination btn-group">
       
-        <a class="btn prev" href="/2013/01/19/jekyll-and-jekyll-bootstrap" title="Started Using Jekyll and Jekyll-Bootstrap">&larr; Previous</a>
+        <a class="btn prev" href="/2013/09/02/Tracking-Mxit-Apps" title="Tracking Mxit Apps">&larr; Previous</a>
       
         <a class="btn" href="/archive.html">Archive</a>
       
-        <a class="btn next" href="/2013/01/21/Git-and-Github" title="Found Happiness With Git and Github">Next &rarr;</a>
+        <a class="btn next disabled">Next &rarr;</a>
       
     </div>
     <hr>
@@ -199,7 +215,7 @@
   <div class="span4">
     <section>
       <h4>Published</h4>
-      <div class="date"><span>20 January 2013</span></div>
+      <div class="date"><span>11 September 2013</span></div>
     </section>
          
     
@@ -212,11 +228,15 @@
 
   
      
-    	<li><a href="/tags.html#Vagrant-ref">Vagrant <span>1</span></a></li>
+    	<li><a href="/tags.html#Amazon-ref">Amazon <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#AWS-ref">AWS <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#ElastiCache-ref">ElastiCache <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#Laravel4-ref">Laravel4 <span>1</span></a></li>
      
     	<li><a href="/tags.html#development-ref">development <span>5</span></a></li>
-     
-    	<li><a href="/tags.html#Virtualbox-ref">Virtualbox <span>1</span></a></li>
     
   
 
