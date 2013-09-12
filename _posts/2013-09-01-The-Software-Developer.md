@@ -3,7 +3,7 @@ layout: post
 title: "The Software Developer"
 description: "How frames of reference can change meanings of titles"
 category: 
-tags: [software,  development, titles, Python]
+tags: [software,  development, titles]
 ---
 {% include JB/setup %}
 
