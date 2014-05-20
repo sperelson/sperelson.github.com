@@ -4,7 +4,7 @@
  <title>I've Just</title>
  <link href="http://blog.hapnic.com/atom.xml" rel="self"/>
  <link href="http://blog.hapnic.com"/>
- <updated>2013-09-12T09:56:32+02:00</updated>
+ <updated>2014-05-20T22:20:29+02:00</updated>
  <id>http://blog.hapnic.com</id>
  <author>
    <name>Stephen Perelson</name>
@@ -17,11 +17,14 @@
    <link href="http://blog.hapnic.com/2013/09/11/Laravel-4-and-ElastiCache"/>
    <updated>2013-09-11T00:00:00+02:00</updated>
    <id>http://blog.hapnic.com/2013/09/11/Laravel-4-and-ElastiCache</id>
-   <content type="html">&lt;p&gt;My team uses Amazon&amp;#8217;s Web services (AWS) to meet our day-to-day Internet and Web needs. Our hosting stack is very straightforward and we try to use many of the services offered by AWS. These include CloudFormation, Elastic Beanstalk, as well as ElastiCache.&lt;/p&gt;
+   <content type="html">
+&lt;p&gt;My team uses Amazon’s Web services (AWS) to meet our day-to-day Internet and Web needs. Our hosting stack is very straightforward and we try to use many of the services offered by AWS. These include CloudFormation, Elastic Beanstalk, as well as ElastiCache.&lt;/p&gt;
 
-&lt;p&gt;Therein lies our problem. Laravel does not support ElastiCache without custom extensions. I&amp;#8217;m going to share how I have implemented this custom cache extension.&lt;/p&gt;
+&lt;p&gt;Therein lies our problem. Laravel does not support ElastiCache without custom extensions. I’m going to share how I have implemented this custom cache extension.&lt;/p&gt;
+
 &lt;!--more--&gt;
-&lt;h2 id='problems'&gt;Problems&lt;/h2&gt;
+
+&lt;h2 id=&quot;problems&quot;&gt;Problems&lt;/h2&gt;
 
 &lt;p&gt;ElastiCache is the reason for this post so I will describe it quickly.&lt;/p&gt;
 
@@ -31,23 +34,28 @@
 
 &lt;p&gt;However, that is a problem with a few parts. Firstly, you do not have the AWS Memcached driver when running things locally so trying to set these options will crash your script.&lt;/p&gt;
 
-&lt;p&gt;Secondly, we use the &lt;a href='http://laravel.com/'&gt;Laravel&lt;/a&gt; PHP framework and it has no concept of ElastiCache in their default Memcached caching driver. Which means you have to extend the cache driver with one of your own devising.&lt;/p&gt;
+&lt;p&gt;Secondly, we use the &lt;a href=&quot;http://laravel.com/&quot;&gt;Laravel&lt;/a&gt; PHP framework and it has no concept of ElastiCache in their default Memcached caching driver. Which means you have to extend the cache driver with one of your own devising.&lt;/p&gt;
 
-&lt;h2 id='solution'&gt;Solution&lt;/h2&gt;
+&lt;h2 id=&quot;solution&quot;&gt;Solution&lt;/h2&gt;
 
 &lt;p&gt;First we need to create our own version of the Memcached Connector (MemcachedConnector.php). I placed this one in /app/libraries/ElasticacheConnector.php:&lt;/p&gt;
-&lt;script src='https://gist.github.com/sperelson/6528932.js'&gt;
-&lt;/script&gt;
-&lt;p&gt;I then included a PHP file in app/start named for the environment that will be running with ElastiCache (prod.php) with the following code:&lt;/p&gt;
-&lt;script src='https://gist.github.com/sperelson/6528976.js'&gt;
-&lt;/script&gt;
-&lt;p&gt;Set the cache.driver config value to &amp;#8216;elasticache&amp;#8217; to ensure that this custom cache driver is used.&lt;/p&gt;
 
-&lt;h2 id='conclusion'&gt;Conclusion&lt;/h2&gt;
+&lt;script src=&quot;https://gist.github.com/sperelson/6528932.js&quot;&gt;
+&lt;/script&gt;
+
+&lt;p&gt;I then included a PHP file in app/start named for the environment that will be running with ElastiCache (prod.php) with the following code:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/sperelson/6528976.js&quot;&gt;
+&lt;/script&gt;
+
+&lt;p&gt;Set the cache.driver config value to ‘elasticache’ to ensure that this custom cache driver is used.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 
 &lt;p&gt;What is interesting here is that I am not writing a new driver for ElastiCache. I am only modifying the connection to make use of the required options that enables the dynamic discovery of the ElastiCache servers. I have also done this in such a way that you could use this custom cache driver for local development if you wanted to not worry about the different configs. This works because the options are only applied if they exist.&lt;/p&gt;
 
-&lt;p&gt;I have used the equivalent of this technique for Laravel 3.x in another project but I have yet to test this particular code in production. So, your mileage may vary and I&amp;#8217;ll add the disclaimer that you use any code or methods presented here at your own risk. Please let me know if you encounter any issues - I will update the post as necessary.&lt;/p&gt;</content>
+&lt;p&gt;I have used the equivalent of this technique for Laravel 3.x in another project but I have yet to test this particular code in production. So, your mileage may vary and I’ll add the disclaimer that you use any code or methods presented here at your own risk. Please let me know if you encounter any issues - I will update the post as necessary.&lt;/p&gt;
+</content>
  </entry>
  
  <entry>
@@ -55,25 +63,25 @@
    <link href="http://blog.hapnic.com/2013/09/02/Tracking-Mxit-Apps"/>
    <updated>2013-09-02T00:00:00+02:00</updated>
    <id>http://blog.hapnic.com/2013/09/02/Tracking-Mxit-Apps</id>
-   <content type="html">&lt;p&gt;Tracking the usage of any application is pretty useful stuff. So useful in fact that there are a plethora of SAAS offerings out there for collecting data for analytics, some even free to use. It doesn&amp;#8217;t take much effort to ensure that any of your apps feed useful data back to one of these services to generate useful statistics.&lt;/p&gt;
+   <content type="html">
+&lt;p&gt;Tracking the usage of any application is pretty useful stuff. So useful in fact that there are a plethora of SAAS offerings out there for collecting data for analytics, some even free to use. It doesn’t take much effort to ensure that any of your apps feed useful data back to one of these services to generate useful statistics.&lt;/p&gt;
 
-&lt;p&gt;But, certain environments make the default collection methods very difficult to use. One such environment would be Mxit&amp;#8217;s portal applications. These portal applications are parsed through a special proxy server and are displayed in a very constrained client application that offers no scripting. Meaning every bit of intelligence must be built into the application&amp;#8217;s server-based logic stack.&lt;/p&gt;
+&lt;p&gt;But, certain environments make the default collection methods very difficult to use. One such environment would be Mxit’s portal applications. These portal applications are parsed through a special proxy server and are displayed in a very constrained client application that offers no scripting. Meaning every bit of intelligence must be built into the application’s server-based logic stack.&lt;/p&gt;
 
 &lt;p&gt;I recently implemented an image-based tracking method to enable tracking via Effective Measure for some Mxit portal application properties. This is how I did it.&lt;/p&gt;
+
 &lt;!--more--&gt;
-&lt;h2 id='solution'&gt;Solution&lt;/h2&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;Solution&lt;/h2&gt;
 
 &lt;ol&gt;
-&lt;li&gt;Insert an image tag pointing to a handler server-side with a cache busting, dynamically generated unique nonce&lt;/li&gt;
-
-&lt;li&gt;Collect the data for stats submission and submit&lt;/li&gt;
-
-&lt;li&gt;Collect the data that would be handled by cookies and store server-side (Memcached works well)&lt;/li&gt;
-
-&lt;li&gt;Return a single pixel transparent gif&lt;/li&gt;
+  &lt;li&gt;Insert an image tag pointing to a handler server-side with a cache busting, dynamically generated unique nonce&lt;/li&gt;
+  &lt;li&gt;Collect the data for stats submission and submit&lt;/li&gt;
+  &lt;li&gt;Collect the data that would be handled by cookies and store server-side (Memcached works well)&lt;/li&gt;
+  &lt;li&gt;Return a single pixel transparent gif&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id='cache_busting_nonce'&gt;Cache Busting Nonce?&lt;/h3&gt;
+&lt;h3 id=&quot;cache-busting-nonce&quot;&gt;Cache Busting Nonce?&lt;/h3&gt;
 
 &lt;p&gt;We have to ensure that the Mxit proxy server does not cache the returned gif. If it does, this method of tracking will never work. But this method does require some planning.&lt;/p&gt;
 
@@ -81,27 +89,28 @@
 
 &lt;p&gt;The beauty of this solution is that you could have multiple tracking tags for different services without affecting page response times. The image request is initiated from the Mxit client and means that the page is rendered on the handset very quickly.&lt;/p&gt;
 
-&lt;h3 id='store_serverside'&gt;Store Server-Side?&lt;/h3&gt;
+&lt;h3 id=&quot;store-server-side&quot;&gt;Store Server-Side?&lt;/h3&gt;
 
 &lt;p&gt;The Mxit proxy server does not handle certain interactions very well. One example is that many HTTP status responses are not supported and do not fail gracefully. For example, if your app returns a 307 expecting the user to be redirected you would be mistaken and you would quickly learn to stick to a 302.&lt;/p&gt;
 
 &lt;p&gt;More importantly for this solution, the Mxit proxy server does not expect to receive cookies from an image file request. Cookies that your server sends in response to the image request are silently ignored.&lt;/p&gt;
 
-&lt;p&gt;The only solution is to store the session data on the server. AWS offers Elasticache which works very well for this purpose if you&amp;#8217;re hosted on AWS.&lt;/p&gt;
+&lt;p&gt;The only solution is to store the session data on the server. AWS offers Elasticache which works very well for this purpose if you’re hosted on AWS.&lt;/p&gt;
 
-&lt;p&gt;I store all the cookies related to a unique user and application in a single blob of data that is set to never expire. Each cookie stored within the blob should maintain the same values the normal cookie would: expiry, path, domain, and value.&lt;/p&gt;
+&lt;p&gt;I store all the cookies related to a unique user and application in a single blob of data that is set to never expire. Each cookie stored within the blob should maintain the same values the normal cookie would: expiry, path, domain, and value. &lt;/p&gt;
 
 &lt;p&gt;After reading the cookie, but before using the value stored therein, the expiry date and other values should be checked for validity. So, for example, if the cookie has expired then discard it. Then proceed to update the relevant cookie values with the newer data after a tracking image request.&lt;/p&gt;
 
-&lt;h3 id='return_a_gif'&gt;Return a gif?&lt;/h3&gt;
+&lt;h3 id=&quot;return-a-gif&quot;&gt;Return a gif?&lt;/h3&gt;
 
-&lt;p&gt;If you don&amp;#8217;t return a valid image/gif then the Mxit client may display a rather ugly looking Missing Image placeholder. Examples of returning transparent gifs can be found easily enough online.&lt;/p&gt;
+&lt;p&gt;If you don’t return a valid image/gif then the Mxit client may display a rather ugly looking Missing Image placeholder. Examples of returning transparent gifs can be found easily enough online.&lt;/p&gt;
 
-&lt;h2 id='conclusion'&gt;Conclusion&lt;/h2&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 
-&lt;p&gt;I&amp;#8217;m using this in production with an application that is receiving about 40,000 page views a day and each page has two different tracking images. It is working very well. This method can also be scaled very nicely from using a dedicated server to a cluster of servers.&lt;/p&gt;
+&lt;p&gt;I’m using this in production with an application that is receiving about 40,000 page views a day and each page has two different tracking images. It is working very well. This method can also be scaled very nicely from using a dedicated server to a cluster of servers.&lt;/p&gt;
 
-&lt;p&gt;The only failing of this solution is that Mxit clients that do not support images will not be tracked. Fortunately, these clients are a very small percentage of the total.&lt;/p&gt;</content>
+&lt;p&gt;The only failing of this solution is that Mxit clients that do not support images will not be tracked. Fortunately, these clients are a very small percentage of the total.&lt;/p&gt;
+</content>
  </entry>
  
  <entry>
@@ -109,24 +118,27 @@
    <link href="http://blog.hapnic.com/2013/09/01/The-Software-Developer"/>
    <updated>2013-09-01T00:00:00+02:00</updated>
    <id>http://blog.hapnic.com/2013/09/01/The-Software-Developer</id>
-   <content type="html">&lt;p&gt;I know a person who calls himself a software developer. I find this strange since I know I am a software developer and I have never considered this person to be one. I mean, why would a person with no coding chops call themselves a software developer?&lt;/p&gt;
+   <content type="html">
+&lt;p&gt;I know a person who calls himself a software developer. I find this strange since I know I am a software developer and I have never considered this person to be one. I mean, why would a person with no coding chops call themselves a software developer?&lt;/p&gt;
+
 &lt;!--more--&gt;
-&lt;p&gt;I think the answer lies in understanding what this person&amp;#8217;s definition of the title &amp;#8220;software developer&amp;#8221; is. First, the official definition (quoting Wikipedia&amp;#8217;s Software Developer page):&lt;/p&gt;
+
+&lt;p&gt;I think the answer lies in understanding what this person’s definition of the title “software developer” is. First, the official definition (quoting Wikipedia’s Software Developer page):&lt;/p&gt;
 
 &lt;blockquote&gt;
-&lt;p&gt;A software developer is a person concerned with facets of the software development process. Their work includes researching, designing, implementing, and testing software.&lt;/p&gt;
+  &lt;p&gt;A software developer is a person concerned with facets of the software development process. Their work includes researching, designing, implementing, and testing software.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;This is a pretty good definition, but this person I know&amp;#8217;s definition is very likely akin to the definition for a property developer (relevant bits cut from the Real Estate Development Wikipedia article):&lt;/p&gt;
+&lt;p&gt;This is a pretty good definition, but this person I know’s definition is very likely akin to the definition for a property developer (relevant bits cut from the Real Estate Development Wikipedia article):&lt;/p&gt;
 
 &lt;blockquote&gt;
-&lt;p&gt;Developers &amp;#8230; have builders build projects, create, imagine, control and orchestrate the process of development from the beginning to end.&lt;/p&gt;
+  &lt;p&gt;Developers … have builders build projects, create, imagine, control and orchestrate the process of development from the beginning to end.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;There is a definite similarity between these types of developers, but the differences are important. The software developer is a coder while the property developer is a more like the Film Producer (again, a Wikipedia quote for Film Producer):&lt;/p&gt;
 
 &lt;blockquote&gt;
-&lt;p&gt;Film producers prepare and then supervise the making of a film&amp;#8230;.&lt;/p&gt;
+  &lt;p&gt;Film producers prepare and then supervise the making of a film….&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;In other words, a property developer prepares a project and supervises the project to fruition in order to achieve a goal, typically monetary profit. Just like this person I know with his software development projects.&lt;/p&gt;
@@ -135,11 +147,12 @@
 
 &lt;p&gt;Is there anything that can be done about it? Short of changing an entire industry to use a different term for software developer, no.&lt;/p&gt;
 
-&lt;p&gt;Maybe, just maybe, this person I know&amp;#8217;s definition should become the standard, industry-wide definition for Software Developer. As soon as that happens then we, the coders of the world can begin calling ourselves something better than Software Developer.&lt;/p&gt;
+&lt;p&gt;Maybe, just maybe, this person I know’s definition should become the standard, industry-wide definition for Software Developer. As soon as that happens then we, the coders of the world can begin calling ourselves something better than Software Developer.&lt;/p&gt;
 
-&lt;p&gt;I have referred to myself as a Software Contriver before, but that was just a bit contrived. I&amp;#8217;m however quite fond of Coder as a reference to any person who can write code for a computer. The term Coder is far more suitable than a specific IT job title. An example of such is my current job that has the title: Senior Web Engineer, which clearly defines an area of expertise and a role therein.&lt;/p&gt;
+&lt;p&gt;I have referred to myself as a Software Contriver before, but that was just a bit contrived. I’m however quite fond of Coder as a reference to any person who can write code for a computer. The term Coder is far more suitable than a specific IT job title. An example of such is my current job that has the title: Senior Web Engineer, which clearly defines an area of expertise and a role therein.&lt;/p&gt;
 
-&lt;p&gt;All said, nothing will change the fact that I get very disappointed when I meet a Software Developer and I find out that this person cannot code. It&amp;#8217;s like meeting a property developer only to find out that person only knows how to lay bricks.&lt;/p&gt;</content>
+&lt;p&gt;All said, nothing will change the fact that I get very disappointed when I meet a Software Developer and I find out that this person cannot code. It’s like meeting a property developer only to find out that person only knows how to lay bricks.&lt;/p&gt;
+</content>
  </entry>
  
  <entry>
@@ -147,13 +160,15 @@
    <link href="http://blog.hapnic.com/2013/08/10/Server-Side-Font-Glyph-Rendering"/>
    <updated>2013-08-10T00:00:00+02:00</updated>
    <id>http://blog.hapnic.com/2013/08/10/Server-Side-Font-Glyph-Rendering</id>
-   <content type="html">&lt;p&gt;Client side rendering of glyphs stored in font files is becoming quite prevalent. However, just because rendering the glyphs on the client side is the generally accepted method, doesn&amp;#8217;t mean all web browsers are capable.&lt;/p&gt;
+   <content type="html">
+&lt;p&gt;Client side rendering of glyphs stored in font files is becoming quite prevalent. However, just because rendering the glyphs on the client side is the generally accepted method, doesn’t mean all web browsers are capable.&lt;/p&gt;
 
 &lt;p&gt;In those times where the client web browser is lacking, typically for underpowered (and very cheap) feature phones, allowing the graceful fallback to a server hosted version of the glyph is preferable to displaying nothing.&lt;/p&gt;
 
-&lt;h3 id='technical_overview'&gt;Technical Overview&lt;/h3&gt;
+&lt;h3 id=&quot;technical-overview&quot;&gt;Technical Overview&lt;/h3&gt;
+&lt;p&gt;I coded a quick and simple PHP class that renders a unicode character from the Font Awesome TTF file. You can visit the source at &lt;a href=&quot;https://github.com/sperelson/awesome2png&quot;&gt;&lt;img src=&quot;http://hapnic.com/awesome2png/?u=F09B&amp;amp;h=18&amp;amp;c=ffffff&quot; alt=&quot;&quot; /&gt;/sperelson/awesome2png&lt;/a&gt;. And that Github icon was rendered dynamically on the server side.&lt;/p&gt;
 
-&lt;p&gt;I coded a quick and simple PHP class that renders a unicode character from the Font Awesome TTF file. You can visit the source at &lt;a href='https://github.com/sperelson/awesome2png'&gt;&lt;img alt='' src='http://hapnic.com/awesome2png/?u=F09B&amp;amp;h=18&amp;amp;c=ffffff' /&gt;/sperelson/awesome2png&lt;/a&gt;. And that Github icon was rendered dynamically on the server side.&lt;/p&gt;</content>
+</content>
  </entry>
  
  <entry>
@@ -161,51 +176,52 @@
    <link href="http://blog.hapnic.com/2013/04/27/Schema-For-Your-Schemaless"/>
    <updated>2013-04-27T00:00:00+02:00</updated>
    <id>http://blog.hapnic.com/2013/04/27/Schema-For-Your-Schemaless</id>
-   <content type="html">&lt;p&gt;I love databases. Most developers couldn&amp;#8217;t give two hoots though. You love databases too? Good. Thanks.&lt;/p&gt;
+   <content type="html">
+&lt;p&gt;I love databases. Most developers couldn’t give two hoots though. You love databases too? Good. Thanks. &lt;/p&gt;
 
-&lt;p&gt;Do you use schemaless databases like MongoDB&lt;a href='#footnote'&gt;*&lt;/a&gt; or one of the many others? I&amp;#8217;ll bet that you enjoy the freedom those NoSQL databases offer?&lt;/p&gt;
+&lt;p&gt;Do you use schemaless databases like MongoDB&lt;a href=&quot;#footnote&quot;&gt;*&lt;/a&gt; or one of the many others? I’ll bet that you enjoy the freedom those NoSQL databases offer?&lt;/p&gt;
 
-&lt;p&gt;But, do you still plan a design for the data&amp;#8217;s structure even though you are using a schemaless database? No? Well, that&amp;#8217;s a little daft.&lt;/p&gt;
+&lt;p&gt;But, do you still plan a design for the data’s structure even though you are using a schemaless database? No? Well, that’s a little daft.&lt;/p&gt;
+
 &lt;!--more--&gt;
-&lt;p&gt;Heh, I just called you daft. Sorry about that. I should probably back up my assertion with an example. And, since I have no imagination lately due in no small part by 17 month old twins keeping me awake, I&amp;#8217;ll be using a real world example I&amp;#8217;ve recently encountered.&lt;/p&gt;
 
-&lt;h2 id='the_example'&gt;The Example&lt;/h2&gt;
+&lt;p&gt;Heh, I just called you daft. Sorry about that. I should probably back up my assertion with an example. And, since I have no imagination lately due in no small part by 17 month old twins keeping me awake, I’ll be using a real world example I’ve recently encountered.&lt;/p&gt;
 
+&lt;h2 id=&quot;the-example&quot;&gt;The Example&lt;/h2&gt;
 &lt;p&gt;This is a simple problem: store unique user visit counts for day, week, and month periods.&lt;/p&gt;
 
-&lt;p&gt;If you were to store this data in a relational database you could get away with a single table. With clever use of fields and indexes this approach is probably the simplest of all the ways you could solve this problem. It wouldn&amp;#8217;t even use that much storage, but some simple aggregation could simplify the counts down for any period.&lt;/p&gt;
+&lt;p&gt;If you were to store this data in a relational database you could get away with a single table. With clever use of fields and indexes this approach is probably the simplest of all the ways you could solve this problem. It wouldn’t even use that much storage, but some simple aggregation could simplify the counts down for any period.&lt;/p&gt;
 
-&lt;p&gt;The solution I was tasked to refactor was implemented in MongoDB and had some unforeseen design limitations. The design made use of a single MongoDB database that holds all of the period collections. This keeps things quite tidy, especially considering that a new collection was being created for every new period.&lt;/p&gt;
+&lt;p&gt;The solution I was tasked to refactor was implemented in MongoDB and had some unforeseen design limitations. The design made use of a single MongoDB database that holds all of the period collections. This keeps things quite tidy, especially considering that a new collection was being created for every new period. &lt;/p&gt;
 
 &lt;p&gt;That is, a new collection every day for the daily uniques, a new one every week for the weekly uniques, and a new one every month for the monthly uniques. And each of these collections would store the user ID and give this ID a unique index to ensure only one document is created for every user in each of these collections.&lt;/p&gt;
 
-&lt;p&gt;To query a period&amp;#8217;s count, just programatically produce the period&amp;#8217;s collection name and count the documents in the collection.&lt;/p&gt;
+&lt;p&gt;To query a period’s count, just programatically produce the period’s collection name and count the documents in the collection.&lt;/p&gt;
 
-&lt;h2 id='why_refactor'&gt;Why Refactor&lt;/h2&gt;
-
+&lt;h2 id=&quot;why-refactor&quot;&gt;Why Refactor&lt;/h2&gt;
 &lt;p&gt;The lack of performance involved with counting documents was not the primary concern. However, disk usage was a problem. The number of unique types and periods being tracked meant that this simple problem was using almost 12GB of disk space in well over a thousand collections by the time I was tasked with redesigning it.&lt;/p&gt;
 
-&lt;h2 id='my_solution'&gt;My Solution&lt;/h2&gt;
-
+&lt;h2 id=&quot;my-solution&quot;&gt;My Solution&lt;/h2&gt;
 &lt;p&gt;Initially, it is easy to forget that you have to track a user identifier in order to ensure tracking of uniques. Understanding that you have to keep an account of the user identifiers for the current period is important and meant that the existing code and data formed the basis for the refactored solution. This also meant limited refactoring of the underlying codebase instead of a complete rewrite that could introduce severe bugs.&lt;/p&gt;
 
-&lt;p&gt;To start this kind of refactor, you must understand the database&amp;#8217;s features and limitations. For example, why is the user&amp;#8217;s identifier stored as an element in a document with its own unique index when the document&amp;#8217;s MongoID, the &amp;#8220;_id&amp;#8221;, can be used instead.&lt;/p&gt;
+&lt;p&gt;To start this kind of refactor, you must understand the database’s features and limitations. For example, why is the user’s identifier stored as an element in a document with its own unique index when the document’s MongoID, the “_id”, can be used instead.&lt;/p&gt;
 
-&lt;p&gt;This simple reuse of the &amp;#8220;_id&amp;#8221; to hold the user&amp;#8217;s identifier instead would result in a drastic reduction in the required storage space as the document would be half the size and would not need the extra index.&lt;/p&gt;
+&lt;p&gt;This simple reuse of the “_id” to hold the user’s identifier instead would result in a drastic reduction in the required storage space as the document would be half the size and would not need the extra index.&lt;/p&gt;
 
-&lt;p&gt;The next step was to summarise the existing data into a special summary counts collection. The existing programmatic collection names were used as these document&amp;#8217;s MongoIDs to again reuse the existing index. A cron job runs the script after midnight to tally any old period collections and drop them.&lt;/p&gt;
+&lt;p&gt;The next step was to summarise the existing data into a special summary counts collection. The existing programmatic collection names were used as these document’s MongoIDs to again reuse the existing index. A cron job runs the script after midnight to tally any old period collections and drop them.&lt;/p&gt;
 
-&lt;p&gt;The end result is a dramatic reduction in disk usage and an improvement in performance when viewing old data.&lt;/p&gt;
+&lt;p&gt;The end result is a dramatic reduction in disk usage and an improvement in performance when viewing old data. &lt;/p&gt;
 
-&lt;h2 id='conclusion'&gt;Conclusion&lt;/h2&gt;
-
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;Not planning for the eventual growth of your data is going to be devastating for your application. Always understand how your data will grow and what the implications of that growth will be.&lt;/p&gt;
 
 &lt;p&gt;It helps knowing the features and limitations of the data store you are using. For example, trying to use MongoDB to perform real-time aggregate queries would be like trying to use MySQL to hold blobs of Json data for your web app.&lt;/p&gt;
 
 &lt;p&gt;Finally, always plan ahead, plan in pencil, and have an eraser handy.&lt;/p&gt;
-&lt;a id='footnote' /&gt;
-&lt;p&gt;&lt;em&gt;* &lt;a href='http://www.mongodb.org/'&gt;MongoDB&lt;/a&gt; is more accurately described as having a dynamic schema and is loads of fun to play with.&lt;/em&gt;&lt;/p&gt;</content>
+
+&lt;p&gt;&lt;a id=&quot;footnote&quot;&gt;&lt;/a&gt;
+&lt;em&gt;* &lt;a href=&quot;http://www.mongodb.org/&quot;&gt;MongoDB&lt;/a&gt; is more accurately described as having a dynamic schema and is loads of fun to play with.&lt;/em&gt;&lt;/p&gt;
+</content>
  </entry>
  
  <entry>
@@ -213,47 +229,39 @@
    <link href="http://blog.hapnic.com/2013/03/29/Used-PHP-as-a-Proxy-to-a-Go-Service"/>
    <updated>2013-03-29T00:00:00+02:00</updated>
    <id>http://blog.hapnic.com/2013/03/29/Used-PHP-as-a-Proxy-to-a-Go-Service</id>
-   <content type="html">&lt;p&gt;I love playing with new technology and that includes programming languages and environments. I&amp;#8217;ve been wanting to use &lt;a href='http://golang.org/'&gt;Go&lt;/a&gt; in a project for a while and the last time I tried I was not thrilled with the method my web host uses to run custom apps.&lt;/p&gt;
+   <content type="html">
+&lt;p&gt;I love playing with new technology and that includes programming languages and environments. I’ve been wanting to use &lt;a href=&quot;http://golang.org/&quot;&gt;Go&lt;/a&gt; in a project for a while and the last time I tried I was not thrilled with the method my web host uses to run custom apps.&lt;/p&gt;
 
-&lt;p&gt;It isn&amp;#8217;t like they do it badly or wrong. It&amp;#8217;s just that if the process dies, it isn&amp;#8217;t trivial to get it going again. Minutes of dead website is minutes of dead website. Not something any web developer wants. But, I think I have a solution.&lt;/p&gt;
+&lt;p&gt;It isn’t like they do it badly or wrong. It’s just that if the process dies, it isn’t trivial to get it going again. Minutes of dead website is minutes of dead website. Not something any web developer wants. But, I think I have a solution.&lt;/p&gt;
+
 &lt;!--more--&gt;
-&lt;h2 id='current_state'&gt;Current State&lt;/h2&gt;
 
-&lt;p&gt;Webfaction is a seriously awesome web host. You get a virtual piece of a hardcore server that you can do almost anything with. If you haven&amp;#8217;t checked them out do yourself a favour and me a huge one and please use this affliate link: &lt;a href='http://www.webfaction.com?affiliate=sperelson'&gt;Webfaction&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;current-state&quot;&gt;Current State&lt;/h2&gt;
+&lt;p&gt;Webfaction is a seriously awesome web host. You get a virtual piece of a hardcore server that you can do almost anything with. If you haven’t checked them out do yourself a favour and me a huge one and please use this affliate link: &lt;a href=&quot;http://www.webfaction.com?affiliate=sperelson&quot;&gt;Webfaction&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Webfaction offer a huge list of preconfigured services that include options for Django, Wordpress, Rails, Drupal, and more. You also have the option of a custom application. Through a bit of effort I discovered that you can easily compile a Go program in a correctly configured CentOs 6.3 virtual machine and run the resulting executable in your Webfaction server account.&lt;/p&gt;
 
 &lt;p&gt;Unfortunately, the issue I have with this is that the default approach to setting up a custom application on Webfaction is to expose the service on an assigned port, which is then exposed through some magic via a virtual host via an Nginx front-end.&lt;/p&gt;
 
-&lt;p&gt;If the custom service dies nothing will restart it unless you set up a cron job to verify that it is running. And then you&amp;#8217;re stuck waiting a few minutes before it gets restarted at the worst end. Also, avoiding downtime during upgrades is very difficult.&lt;/p&gt;
+&lt;p&gt;If the custom service dies nothing will restart it unless you set up a cron job to verify that it is running. And then you’re stuck waiting a few minutes before it gets restarted at the worst end. Also, avoiding downtime during upgrades is very difficult.&lt;/p&gt;
 
-&lt;h2 id='one_solution'&gt;One Solution&lt;/h2&gt;
+&lt;h2 id=&quot;one-solution&quot;&gt;One Solution&lt;/h2&gt;
+&lt;p&gt;I realised that I could easily use a standard scripting language, like PHP, as a proxy to the compiled custom service. This offers some interesting benefits:
+- Quick restart of the custom service if it dies. Stampeding herds can be minimised with a locking file during the custom service restart.
+- The custom service need only handle the tasks that require serious processing and maybe custom session &amp;amp; data management. Leaving common tasks to the scripting front-end.
+- The ability to seamlessly upgrade to newer custom service executables is possible. This can be done by bringing up the new custom service on a different port and pointing the front-end script to the new version.&lt;/p&gt;
 
-&lt;p&gt;I realised that I could easily use a standard scripting language, like PHP, as a proxy to the compiled custom service. This offers some interesting benefits:&lt;/p&gt;
+&lt;p&gt;The bad:
+- Another proxy handling things. All these layers make for a complex system. Not as easy to maintain.
+- The development environment becomes tricky to set up. Although, I have dealt with this by creating a nicely set up Vagrant virtual machine.
+- Won’t calling the custom service from a front-end script be slow? Yes, slightly. But, you shouldn’t be using the custom service for anything that wouldn’t need what it does best – fast processing and very cool in-memory stateful data in as much as its benefits outweigh using the front-end script only. Besides, the Webfaction setup means calling the custom service on the localhost. It would be about as fast as calling Memcached from a PHP only driver.&lt;/p&gt;
 
-&lt;ul&gt;
-&lt;li&gt;Quick restart of the custom service if it dies. Stampeding herds can be minimised with a locking file during the custom service restart.&lt;/li&gt;
-
-&lt;li&gt;The custom service need only handle the tasks that require serious processing and maybe custom session &amp;amp; data management. Leaving common tasks to the scripting front-end.&lt;/li&gt;
-
-&lt;li&gt;The ability to seamlessly upgrade to newer custom service executables is possible. This can be done by bringing up the new custom service on a different port and pointing the front-end script to the new version.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The bad:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Another proxy handling things. All these layers make for a complex system. Not as easy to maintain.&lt;/li&gt;
-
-&lt;li&gt;The development environment becomes tricky to set up. Although, I have dealt with this by creating a nicely set up Vagrant virtual machine.&lt;/li&gt;
-
-&lt;li&gt;Won&amp;#8217;t calling the custom service from a front-end script be slow? Yes, slightly. But, you shouldn&amp;#8217;t be using the custom service for anything that wouldn&amp;#8217;t need what it does best &amp;#8211; fast processing and very cool in-memory stateful data in as much as its benefits outweigh using the front-end script only. Besides, the Webfaction setup means calling the custom service on the localhost. It would be about as fast as calling Memcached from a PHP only driver.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id='conclusion'&gt;Conclusion&lt;/h2&gt;
-
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;This combined approach offers a good blend of flexibility and power and the right project should benefit greatly.&lt;/p&gt;
 
-&lt;p&gt;I am looking forward to trying this out in a real-world project. I have something in mind that would work really well. It has parts best handled by the front-end script and parts best handled by an always running custom service.&lt;/p&gt;</content>
+&lt;p&gt;I am looking forward to trying this out in a real-world project. I have something in mind that would work really well. It has parts best handled by the front-end script and parts best handled by an always running custom service.&lt;/p&gt;
+
+</content>
  </entry>
  
  <entry>
@@ -261,11 +269,15 @@
    <link href="http://blog.hapnic.com/2013/03/04/Set-Up-A-Raspberry-Pi-As-A-Media-Center"/>
    <updated>2013-03-04T00:00:00+02:00</updated>
    <id>http://blog.hapnic.com/2013/03/04/Set-Up-A-Raspberry-Pi-As-A-Media-Center</id>
-   <content type="html">&lt;p&gt;I bought a Raspberry Pi and got the Model B with 512 MB ram and, having tried Xbian and then RaspBMC, I am now using Openelec. All three of these Linux distributions are specially made XBMC controlled media centers.&lt;/p&gt;
+   <content type="html">
+&lt;p&gt;I bought a Raspberry Pi and got the Model B with 512 MB ram and, having tried Xbian and then RaspBMC, I am now using Openelec. All three of these Linux distributions are specially made XBMC controlled media centers. &lt;/p&gt;
 
-&lt;p&gt;My RPi with XBMC is controllable via my TV&amp;#8217;s remote control. This remote control works because of the TV&amp;#8217;s implementation of the Consumer Electronics Control interface (CEC). CEC makes this whole setup extra special as we have a single remote for the whole setup and is easier to use by the whole family.&lt;/p&gt;
+&lt;p&gt;My RPi with XBMC is controllable via my TV’s remote control. This remote control works because of the TV’s implementation of the Consumer Electronics Control interface (CEC). CEC makes this whole setup extra special as we have a single remote for the whole setup and is easier to use by the whole family.&lt;/p&gt;
+
 &lt;!--more--&gt;
-&lt;p&gt;I&amp;#8217;ll add some more details about how I have set up the RPi as a media center and some of the pitfalls I have discovered in the next few days. To get the details started: we use the RPi to stream Internet radio, watch Youtube videos, play media from anywhere on the local network, and to play some videos stored on the SD card in RPi itself. The RPi has turned our not smart TV into something far more capable than a smart TV.&lt;/p&gt;</content>
+
+&lt;p&gt;I’ll add some more details about how I have set up the RPi as a media center and some of the pitfalls I have discovered in the next few days. To get the details started: we use the RPi to stream Internet radio, watch Youtube videos, play media from anywhere on the local network, and to play some videos stored on the SD card in RPi itself. The RPi has turned our not smart TV into something far more capable than a smart TV.&lt;/p&gt;
+</content>
  </entry>
  
  <entry>
@@ -273,19 +285,24 @@
    <link href="http://blog.hapnic.com/2013/02/15/a-smartphone-and-what-a-joke-it-was"/>
    <updated>2013-02-15T00:00:00+02:00</updated>
    <id>http://blog.hapnic.com/2013/02/15/a-smartphone-and-what-a-joke-it-was</id>
-   <content type="html">&lt;p&gt;Smartphone was a term that used to have a pretty specific meaning. Now it seems as if all marketing efforts refer to any phone that allows the user to accomplish some Web connected jobs as smartphones.&lt;/p&gt;
+   <content type="html">
+&lt;p&gt;Smartphone was a term that used to have a pretty specific meaning. Now it seems as if all marketing efforts refer to any phone that allows the user to accomplish some Web connected jobs as smartphones.&lt;/p&gt;
 
-&lt;p&gt;If I were to ask you to mention two smartphones, which would you reply with? Perhaps Apple&amp;#8217;s iPhone? Maybe Samsung&amp;#8217;s Galaxy range or any of the Android based handsets? Or maybe: Blackberry; Symbian; Asha; and the list goes on.&lt;/p&gt;
+&lt;p&gt;If I were to ask you to mention two smartphones, which would you reply with? Perhaps Apple’s iPhone? Maybe Samsung’s Galaxy range or any of the Android based handsets? Or maybe: Blackberry; Symbian; Asha; and the list goes on.&lt;/p&gt;
 
-&lt;p&gt;Not all of those are smartphones though &amp;#8211; not when I apply my definition of the term.&lt;/p&gt;
+&lt;p&gt;Not all of those are smartphones though – not when I apply my definition of the term.&lt;/p&gt;
+
 &lt;!--more--&gt;
-&lt;p&gt;Would you be surprised if I said that Apple&amp;#8217;s iPhone is not a smartphone? I classify the iPhone as a mobile application platform with a phone attached. Due to its strict sandboxing, very few of apps can extend the phone functionality in any meaningful way. You have to jailbreak to get true power.&lt;/p&gt;
 
-&lt;p&gt;Want a custom phone profile during meetings so you phone goes to silent automatically based on your calendar? If you know better, let me know, but I don&amp;#8217;t think it is possible to add an app to an iPhone that can do that.&lt;/p&gt;
+&lt;p&gt;Would you be surprised if I said that Apple’s iPhone is not a smartphone? I classify the iPhone as a mobile application platform with a phone attached. Due to its strict sandboxing, very few of apps can extend the phone functionality in any meaningful way. You have to jailbreak to get true power.&lt;/p&gt;
 
-&lt;p&gt;I&amp;#8217;m not saying the iPhone isn&amp;#8217;t an incredible application platform for mobile apps. It is fantastic for that. It just doesn&amp;#8217;t do anything to make itself a smartphone. Android helps make the phone smarter. Even Symbian gave the app developers the power to improve the phone&amp;#8217;s capabilities.&lt;/p&gt;
+&lt;p&gt;Want a custom phone profile during meetings so you phone goes to silent automatically based on your calendar? If you know better, let me know, but I don’t think it is possible to add an app to an iPhone that can do that.&lt;/p&gt;
 
-&lt;p&gt;So, if you want a smart&lt;strong&gt;phone&lt;/strong&gt; then choose a phone that gives you the power to extend its phone. In the meantime, lets choose a more appropriate name for mobile application devices. How about Marvin?&lt;/p&gt;</content>
+&lt;p&gt;I’m not saying the iPhone isn’t an incredible application platform for mobile apps. It is fantastic for that. It just doesn’t do anything to make itself a smartphone. Android helps make the phone smarter. Even Symbian gave the app developers the power to improve the phone’s capabilities.&lt;/p&gt;
+
+&lt;p&gt;So, if you want a smart&lt;strong&gt;phone&lt;/strong&gt; then choose a phone that gives you the power to extend its phone. In the meantime, lets choose a more appropriate name for mobile application devices. How about Marvin?&lt;/p&gt;
+
+</content>
  </entry>
  
  <entry>
@@ -293,21 +310,25 @@
    <link href="http://blog.hapnic.com/2013/01/21/Git-and-Github"/>
    <updated>2013-01-21T00:00:00+02:00</updated>
    <id>http://blog.hapnic.com/2013/01/21/Git-and-Github</id>
-   <content type="html">&lt;p&gt;I&amp;#8217;ve always liked the idea behind revision control systems. I don&amp;#8217;t think it matters which &lt;a href='http://en.wikipedia.org/wiki/Revision_control'&gt;revision control system&lt;/a&gt; you use as long as it supports you and your team&amp;#8217;s development workflow.&lt;/p&gt;
+   <content type="html">
+&lt;p&gt;I’ve always liked the idea behind revision control systems. I don’t think it matters which &lt;a href=&quot;http://en.wikipedia.org/wiki/Revision_control&quot;&gt;revision control system&lt;/a&gt; you use as long as it supports you and your team’s development workflow.&lt;/p&gt;
 
-&lt;p&gt;I am quite practiced with using Git and Github for my personal and client work. The early days of Git were, however, not very user friendly. You had to be familiar with the CLI and Windows was not easily supported.&lt;/p&gt;
+&lt;p&gt;I am quite practiced with using Git and Github for my personal and client work. The early days of Git were, however, not very user friendly. You had to be familiar with the CLI and Windows was not easily supported. &lt;/p&gt;
+
 &lt;!--more--&gt;
-&lt;p&gt;That has changed a lot recently with Github&amp;#8217;s introduction of GUI clients for Mac OS X and for Windows. And what really impresses with Github&amp;#8217;s clients are their simplified approaches to the most common Git operations. You still have the full power that Git&amp;#8217;s CLI offers, but you most likely will never have to use that power.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href='https://github.com'&gt;Github&lt;/a&gt; offers a central store for your code repositories and almost all the code for the projects I work on are hosted there. Some people are even using Github for unusual projects such as the person who is tracking issues on his &lt;a href='https://github.com/frabcus/house'&gt;house&lt;/a&gt;. I&amp;#8217;m using Github to host the blog you are reading!&lt;/p&gt;
+&lt;p&gt;That has changed a lot recently with Github’s introduction of GUI clients for Mac OS X and for Windows. And what really impresses with Github’s clients are their simplified approaches to the most common Git operations. You still have the full power that Git’s CLI offers, but you most likely will never have to use that power.&lt;/p&gt;
 
-&lt;h3 id='what_does_revision_control_really_offer_you'&gt;What does revision control really offer you?&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com&quot;&gt;Github&lt;/a&gt; offers a central store for your code repositories and almost all the code for the projects I work on are hosted there. Some people are even using Github for unusual projects such as the person who is tracking issues on his &lt;a href=&quot;https://github.com/frabcus/house&quot;&gt;house&lt;/a&gt;. I’m using Github to host the blog you are reading!&lt;/p&gt;
+
+&lt;h3 id=&quot;what-does-revision-control-really-offer-you&quot;&gt;What does revision control really offer you?&lt;/h3&gt;
 
 &lt;p&gt;Revision control give you the undeniable proof of how code has evolved and who was to blame for that. Git also give you the power to test out concepts and new features without affecting the primary source code through the use of branches.&lt;/p&gt;
 
-&lt;h3 id='ps'&gt;P.S.&lt;/h3&gt;
+&lt;h3 id=&quot;ps&quot;&gt;P.S.&lt;/h3&gt;
 
-&lt;p&gt;There are other really good Git clients out there and you are definitely not restricted to using Github to host your central repository.&lt;/p&gt;</content>
+&lt;p&gt;There are other really good Git clients out there and you are definitely not restricted to using Github to host your central repository.&lt;/p&gt;
+</content>
  </entry>
  
  <entry>
@@ -315,21 +336,28 @@
    <link href="http://blog.hapnic.com/2013/01/20/Vagrant"/>
    <updated>2013-01-20T00:00:00+02:00</updated>
    <id>http://blog.hapnic.com/2013/01/20/Vagrant</id>
-   <content type="html">&lt;p&gt;I am amazed at how quickly I became comfortable using &lt;a href='http://vagrantup.com/'&gt;Vagrant&lt;/a&gt;. Especially considering how long I put off using it.&lt;/p&gt;
+   <content type="html">
+&lt;p&gt;I am amazed at how quickly I became comfortable using &lt;a href=&quot;http://vagrantup.com/&quot;&gt;Vagrant&lt;/a&gt;. Especially
+considering how long I put off using it. &lt;/p&gt;
 
-&lt;p&gt;I liked the idea that my Macbook could run all the daemons and services I would need for any project. Nothing wrong with this approach if you only ever work on a single project. But begin working on different projects and your computer quickly becomes full of a hodgepodge of running processes.&lt;/p&gt;
+&lt;p&gt;I liked the idea that my Macbook could run all the daemons and services I would need for any project. Nothing wrong with this approach if you only ever work on a single project. 
+But begin working on different projects and your computer quickly becomes full of a hodgepodge of running processes.&lt;/p&gt;
+
 &lt;!--more--&gt;
-&lt;p&gt;I would not start a new project now without setting up a Vagrantfile. If you don&amp;#8217;t know what Vagrant is let me explain it very quickly by quoting the website:&lt;/p&gt;
+
+&lt;p&gt;I would not start a new project now without setting up a Vagrantfile. If you don’t know what Vagrant is let me explain it very quickly by quoting the website:&lt;/p&gt;
 
 &lt;blockquote&gt;
-&lt;p&gt;Create and configure lightweight, reproducible, and portable development environments.&lt;/p&gt;
+  &lt;p&gt;Create and configure lightweight, reproducible, and portable development environments.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;It does this by leveraging Virtualbox to create and run headless Virtual Machines. These VM&amp;#8217;s use the code that resides in your host OS via a shared folder. So, edit in your primary OS using your favourite editor and see your results immediately via the VM.&lt;/p&gt;
+&lt;p&gt;It does this by leveraging Virtualbox to create and run headless Virtual Machines. These VM’s use the code that resides in your host OS via a shared folder. 
+So, edit in your primary OS using your favourite editor and see your results immediately via the VM.&lt;/p&gt;
 
-&lt;p&gt;I&amp;#8217;ll be honest, setting up your initial Vagrant VM for a project may take a bit of time. Software does not just install itself so you have to script the installation of any software your project will require. However, once done, you will likely reuse your scripts for future projects.&lt;/p&gt;
+&lt;p&gt;I’ll be honest, setting up your initial Vagrant VM for a project may take a bit of time. Software does not just install itself so you have to script the installation of any software your project will require. However, once done, you will likely reuse your scripts for future projects.&lt;/p&gt;
 
-&lt;p&gt;I really like that Vagrant stops me from cluttering up my computer with loads of software. I also like that the development environment is scriptable and easily shared. I am also amazed at how often I am using Vagrant now.&lt;/p&gt;</content>
+&lt;p&gt;I really like that Vagrant stops me from cluttering up my computer with loads of software. I also like that the development environment is scriptable and easily shared. I am also amazed at how often I am using Vagrant now.&lt;/p&gt;
+</content>
  </entry>
  
  <entry>
@@ -337,17 +365,19 @@
    <link href="http://blog.hapnic.com/2013/01/19/jekyll-and-jekyll-bootstrap"/>
    <updated>2013-01-19T00:00:00+02:00</updated>
    <id>http://blog.hapnic.com/2013/01/19/jekyll-and-jekyll-bootstrap</id>
-   <content type="html">&lt;p&gt;I realised that I encounter lots of semi-interesting and interesting technologies quite often. I make the mistake of not writing about my experiences.&lt;/p&gt;
+   <content type="html">
+&lt;p&gt;I realised that I encounter lots of semi-interesting and interesting technologies quite often. I make the mistake of not writing about my experiences.&lt;/p&gt;
 
-&lt;p&gt;I have also wanted to start using a static blog engine. Since Github&amp;#8217;s Pages use Jekyll, it seemed like a good jumping off point. I did a quick search for a helper framework and found Jekyll-Bootstrap that had some pre-built themes.&lt;/p&gt;
+&lt;p&gt;I have also wanted to start using a static blog engine. Since Github’s Pages use Jekyll, it seemed like a good jumping off point. I did a quick search for a helper framework and found Jekyll-Bootstrap that had some pre-built themes.&lt;/p&gt;
 
 &lt;p&gt;Setup was not difficult. Just followed the instructions and replaced my existing Github Page with the new files. Change the configs and removed/edited everything else and it was ready to be pushed back to Github.&lt;/p&gt;
 
 &lt;p&gt;I even went as far as setting up the CNAME record to give the blog a custom domain name.&lt;/p&gt;
 
-&lt;h2 id='share_it_all'&gt;Share It All&lt;/h2&gt;
+&lt;h2 id=&quot;share-it-all&quot;&gt;Share It All&lt;/h2&gt;
 
-&lt;p&gt;Now I&amp;#8217;m going to write all about the technologies I&amp;#8217;ve just used.&lt;/p&gt;</content>
+&lt;p&gt;Now I’m going to write all about the technologies I’ve just used.&lt;/p&gt;
+</content>
  </entry>
  
  

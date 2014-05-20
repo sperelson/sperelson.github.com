@@ -87,6 +87,10 @@
   
     
       
+    
+  
+    
+      
       	
       	<li><a href="/pages.html">Pages</a></li>
       	
@@ -147,13 +151,15 @@
 
 <div class="row">
   <div class="span8">
-    <p>Client side rendering of glyphs stored in font files is becoming quite prevalent. However, just because rendering the glyphs on the client side is the generally accepted method, doesn&#8217;t mean all web browsers are capable.</p>
+    
+<p>Client side rendering of glyphs stored in font files is becoming quite prevalent. However, just because rendering the glyphs on the client side is the generally accepted method, doesn’t mean all web browsers are capable.</p>
 
 <p>In those times where the client web browser is lacking, typically for underpowered (and very cheap) feature phones, allowing the graceful fallback to a server hosted version of the glyph is preferable to displaying nothing.</p>
 
-<h3 id='technical_overview'>Technical Overview</h3>
+<h3 id="technical-overview">Technical Overview</h3>
+<p>I coded a quick and simple PHP class that renders a unicode character from the Font Awesome TTF file. You can visit the source at <a href="https://github.com/sperelson/awesome2png"><img src="http://hapnic.com/awesome2png/?u=F09B&amp;h=18&amp;c=ffffff" alt="" />/sperelson/awesome2png</a>. And that Github icon was rendered dynamically on the server side.</p>
 
-<p>I coded a quick and simple PHP class that renders a unicode character from the Font Awesome TTF file. You can visit the source at <a href='https://github.com/sperelson/awesome2png'><img alt='' src='http://hapnic.com/awesome2png/?u=F09B&amp;h=18&amp;c=ffffff' />/sperelson/awesome2png</a>. And that Github icon was rendered dynamically on the server side.</p>
+
     <hr>
     <div class="pagination btn-group">
       
@@ -165,7 +171,21 @@
       
     </div>
     <hr>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'ivejustused'; // required: replace example with your forum shortname
     
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
   </div>
   
   <div class="span4">

@@ -87,6 +87,10 @@
   
     
       
+    
+  
+    
+      
       	
       	<li><a href="/pages.html">Pages</a></li>
       	
@@ -147,47 +151,39 @@
 
 <div class="row">
   <div class="span8">
-    <p>I love playing with new technology and that includes programming languages and environments. I&#8217;ve been wanting to use <a href='http://golang.org/'>Go</a> in a project for a while and the last time I tried I was not thrilled with the method my web host uses to run custom apps.</p>
+    
+<p>I love playing with new technology and that includes programming languages and environments. I’ve been wanting to use <a href="http://golang.org/">Go</a> in a project for a while and the last time I tried I was not thrilled with the method my web host uses to run custom apps.</p>
 
-<p>It isn&#8217;t like they do it badly or wrong. It&#8217;s just that if the process dies, it isn&#8217;t trivial to get it going again. Minutes of dead website is minutes of dead website. Not something any web developer wants. But, I think I have a solution.</p>
+<p>It isn’t like they do it badly or wrong. It’s just that if the process dies, it isn’t trivial to get it going again. Minutes of dead website is minutes of dead website. Not something any web developer wants. But, I think I have a solution.</p>
+
 <!--more-->
-<h2 id='current_state'>Current State</h2>
 
-<p>Webfaction is a seriously awesome web host. You get a virtual piece of a hardcore server that you can do almost anything with. If you haven&#8217;t checked them out do yourself a favour and me a huge one and please use this affliate link: <a href='http://www.webfaction.com?affiliate=sperelson'>Webfaction</a>.</p>
+<h2 id="current-state">Current State</h2>
+<p>Webfaction is a seriously awesome web host. You get a virtual piece of a hardcore server that you can do almost anything with. If you haven’t checked them out do yourself a favour and me a huge one and please use this affliate link: <a href="http://www.webfaction.com?affiliate=sperelson">Webfaction</a>.</p>
 
 <p>Webfaction offer a huge list of preconfigured services that include options for Django, Wordpress, Rails, Drupal, and more. You also have the option of a custom application. Through a bit of effort I discovered that you can easily compile a Go program in a correctly configured CentOs 6.3 virtual machine and run the resulting executable in your Webfaction server account.</p>
 
 <p>Unfortunately, the issue I have with this is that the default approach to setting up a custom application on Webfaction is to expose the service on an assigned port, which is then exposed through some magic via a virtual host via an Nginx front-end.</p>
 
-<p>If the custom service dies nothing will restart it unless you set up a cron job to verify that it is running. And then you&#8217;re stuck waiting a few minutes before it gets restarted at the worst end. Also, avoiding downtime during upgrades is very difficult.</p>
+<p>If the custom service dies nothing will restart it unless you set up a cron job to verify that it is running. And then you’re stuck waiting a few minutes before it gets restarted at the worst end. Also, avoiding downtime during upgrades is very difficult.</p>
 
-<h2 id='one_solution'>One Solution</h2>
+<h2 id="one-solution">One Solution</h2>
+<p>I realised that I could easily use a standard scripting language, like PHP, as a proxy to the compiled custom service. This offers some interesting benefits:
+- Quick restart of the custom service if it dies. Stampeding herds can be minimised with a locking file during the custom service restart.
+- The custom service need only handle the tasks that require serious processing and maybe custom session &amp; data management. Leaving common tasks to the scripting front-end.
+- The ability to seamlessly upgrade to newer custom service executables is possible. This can be done by bringing up the new custom service on a different port and pointing the front-end script to the new version.</p>
 
-<p>I realised that I could easily use a standard scripting language, like PHP, as a proxy to the compiled custom service. This offers some interesting benefits:</p>
+<p>The bad:
+- Another proxy handling things. All these layers make for a complex system. Not as easy to maintain.
+- The development environment becomes tricky to set up. Although, I have dealt with this by creating a nicely set up Vagrant virtual machine.
+- Won’t calling the custom service from a front-end script be slow? Yes, slightly. But, you shouldn’t be using the custom service for anything that wouldn’t need what it does best – fast processing and very cool in-memory stateful data in as much as its benefits outweigh using the front-end script only. Besides, the Webfaction setup means calling the custom service on the localhost. It would be about as fast as calling Memcached from a PHP only driver.</p>
 
-<ul>
-<li>Quick restart of the custom service if it dies. Stampeding herds can be minimised with a locking file during the custom service restart.</li>
-
-<li>The custom service need only handle the tasks that require serious processing and maybe custom session &amp; data management. Leaving common tasks to the scripting front-end.</li>
-
-<li>The ability to seamlessly upgrade to newer custom service executables is possible. This can be done by bringing up the new custom service on a different port and pointing the front-end script to the new version.</li>
-</ul>
-
-<p>The bad:</p>
-
-<ul>
-<li>Another proxy handling things. All these layers make for a complex system. Not as easy to maintain.</li>
-
-<li>The development environment becomes tricky to set up. Although, I have dealt with this by creating a nicely set up Vagrant virtual machine.</li>
-
-<li>Won&#8217;t calling the custom service from a front-end script be slow? Yes, slightly. But, you shouldn&#8217;t be using the custom service for anything that wouldn&#8217;t need what it does best &#8211; fast processing and very cool in-memory stateful data in as much as its benefits outweigh using the front-end script only. Besides, the Webfaction setup means calling the custom service on the localhost. It would be about as fast as calling Memcached from a PHP only driver.</li>
-</ul>
-
-<h2 id='conclusion'>Conclusion</h2>
-
+<h2 id="conclusion">Conclusion</h2>
 <p>This combined approach offers a good blend of flexibility and power and the right project should benefit greatly.</p>
 
 <p>I am looking forward to trying this out in a real-world project. I have something in mind that would work really well. It has parts best handled by the front-end script and parts best handled by an always running custom service.</p>
+
+
     <hr>
     <div class="pagination btn-group">
       
@@ -199,7 +195,21 @@
       
     </div>
     <hr>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'ivejustused'; // required: replace example with your forum shortname
     
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
   </div>
   
   <div class="span4">

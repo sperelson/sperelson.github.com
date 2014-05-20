@@ -87,6 +87,10 @@
   
     
       
+    
+  
+    
+      
       	
       	<li><a href="/pages.html">Pages</a></li>
       	
@@ -147,25 +151,25 @@
 
 <div class="row">
   <div class="span8">
-    <p>Tracking the usage of any application is pretty useful stuff. So useful in fact that there are a plethora of SAAS offerings out there for collecting data for analytics, some even free to use. It doesn&#8217;t take much effort to ensure that any of your apps feed useful data back to one of these services to generate useful statistics.</p>
+    
+<p>Tracking the usage of any application is pretty useful stuff. So useful in fact that there are a plethora of SAAS offerings out there for collecting data for analytics, some even free to use. It doesn’t take much effort to ensure that any of your apps feed useful data back to one of these services to generate useful statistics.</p>
 
-<p>But, certain environments make the default collection methods very difficult to use. One such environment would be Mxit&#8217;s portal applications. These portal applications are parsed through a special proxy server and are displayed in a very constrained client application that offers no scripting. Meaning every bit of intelligence must be built into the application&#8217;s server-based logic stack.</p>
+<p>But, certain environments make the default collection methods very difficult to use. One such environment would be Mxit’s portal applications. These portal applications are parsed through a special proxy server and are displayed in a very constrained client application that offers no scripting. Meaning every bit of intelligence must be built into the application’s server-based logic stack.</p>
 
 <p>I recently implemented an image-based tracking method to enable tracking via Effective Measure for some Mxit portal application properties. This is how I did it.</p>
+
 <!--more-->
-<h2 id='solution'>Solution</h2>
+
+<h2 id="solution">Solution</h2>
 
 <ol>
-<li>Insert an image tag pointing to a handler server-side with a cache busting, dynamically generated unique nonce</li>
-
-<li>Collect the data for stats submission and submit</li>
-
-<li>Collect the data that would be handled by cookies and store server-side (Memcached works well)</li>
-
-<li>Return a single pixel transparent gif</li>
+  <li>Insert an image tag pointing to a handler server-side with a cache busting, dynamically generated unique nonce</li>
+  <li>Collect the data for stats submission and submit</li>
+  <li>Collect the data that would be handled by cookies and store server-side (Memcached works well)</li>
+  <li>Return a single pixel transparent gif</li>
 </ol>
 
-<h3 id='cache_busting_nonce'>Cache Busting Nonce?</h3>
+<h3 id="cache-busting-nonce">Cache Busting Nonce?</h3>
 
 <p>We have to ensure that the Mxit proxy server does not cache the returned gif. If it does, this method of tracking will never work. But this method does require some planning.</p>
 
@@ -173,27 +177,28 @@
 
 <p>The beauty of this solution is that you could have multiple tracking tags for different services without affecting page response times. The image request is initiated from the Mxit client and means that the page is rendered on the handset very quickly.</p>
 
-<h3 id='store_serverside'>Store Server-Side?</h3>
+<h3 id="store-server-side">Store Server-Side?</h3>
 
 <p>The Mxit proxy server does not handle certain interactions very well. One example is that many HTTP status responses are not supported and do not fail gracefully. For example, if your app returns a 307 expecting the user to be redirected you would be mistaken and you would quickly learn to stick to a 302.</p>
 
 <p>More importantly for this solution, the Mxit proxy server does not expect to receive cookies from an image file request. Cookies that your server sends in response to the image request are silently ignored.</p>
 
-<p>The only solution is to store the session data on the server. AWS offers Elasticache which works very well for this purpose if you&#8217;re hosted on AWS.</p>
+<p>The only solution is to store the session data on the server. AWS offers Elasticache which works very well for this purpose if you’re hosted on AWS.</p>
 
-<p>I store all the cookies related to a unique user and application in a single blob of data that is set to never expire. Each cookie stored within the blob should maintain the same values the normal cookie would: expiry, path, domain, and value.</p>
+<p>I store all the cookies related to a unique user and application in a single blob of data that is set to never expire. Each cookie stored within the blob should maintain the same values the normal cookie would: expiry, path, domain, and value. </p>
 
 <p>After reading the cookie, but before using the value stored therein, the expiry date and other values should be checked for validity. So, for example, if the cookie has expired then discard it. Then proceed to update the relevant cookie values with the newer data after a tracking image request.</p>
 
-<h3 id='return_a_gif'>Return a gif?</h3>
+<h3 id="return-a-gif">Return a gif?</h3>
 
-<p>If you don&#8217;t return a valid image/gif then the Mxit client may display a rather ugly looking Missing Image placeholder. Examples of returning transparent gifs can be found easily enough online.</p>
+<p>If you don’t return a valid image/gif then the Mxit client may display a rather ugly looking Missing Image placeholder. Examples of returning transparent gifs can be found easily enough online.</p>
 
-<h2 id='conclusion'>Conclusion</h2>
+<h2 id="conclusion">Conclusion</h2>
 
-<p>I&#8217;m using this in production with an application that is receiving about 40,000 page views a day and each page has two different tracking images. It is working very well. This method can also be scaled very nicely from using a dedicated server to a cluster of servers.</p>
+<p>I’m using this in production with an application that is receiving about 40,000 page views a day and each page has two different tracking images. It is working very well. This method can also be scaled very nicely from using a dedicated server to a cluster of servers.</p>
 
 <p>The only failing of this solution is that Mxit clients that do not support images will not be tracked. Fortunately, these clients are a very small percentage of the total.</p>
+
     <hr>
     <div class="pagination btn-group">
       
@@ -205,7 +210,21 @@
       
     </div>
     <hr>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'ivejustused'; // required: replace example with your forum shortname
     
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
   </div>
   
   <div class="span4">

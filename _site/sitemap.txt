@@ -2,6 +2,7 @@
 http://blog.hapnic.com/archive.html
 http://blog.hapnic.com/atom.xml
 http://blog.hapnic.com/categories.html
+http://blog.hapnic.com/json/index.html
 http://blog.hapnic.com/index.html
 http://blog.hapnic.com/pages.html
 http://blog.hapnic.com/sitemap.txt
